@@ -1,31 +1,34 @@
-package model;
+package com.example.backend.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Estoque {
+public class Produto {
+    @Id @GeneratedValue
+    private Long id;
 
-    @Id
-    private int id;
     private String nome;
+
     private String descricao;
-    private int quantidade;
 
-    public Estoque() {}
+    private double preco;
 
-    public Estoque(int id, String nome, String descricao, int quantidade) {
+    public Produto() {}
+
+    public Produto(Long id, String nome, String descricao, double preco) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.quantidade = quantidade;
+        this.preco = preco;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -45,11 +48,11 @@ public class Estoque {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public double getPreco() {
+        return preco;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 }
