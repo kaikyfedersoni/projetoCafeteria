@@ -1,12 +1,8 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.ProdutoRequest;
-import com.example.backend.dto.ProdutoResponse;
 import com.example.backend.model.Produto;
 import com.example.backend.repository.ProdutoRepository;
-import com.example.backend.service.ProdutoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +22,31 @@ public class ProdutoController {
     public Produto inserir(@RequestBody ProdutoRequest request){
         Produto produto = request.toProduto();
         return produtoRepository.save(produto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        produtoRepository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Produto atualizar(@RequestBody Produto novoProduto, @PathVariable Long id) {
+        return produtoRepository.findById(id)
+                .map(produto -> {
+                    produto.setNome(novoProduto.getNome());
+                    produto.setDescricao(novoProduto.getDescricao());
+                    produto.setPreco(novoProduto.getPreco());
+                    return produtoRepository.save(produto);
+                })
+                .orElseGet(() -> {
+                    novoProduto.setId(id);
+                    return produtoRepository.save(novoProduto);
+                });
+    }
+
+    @GetMapping
+    public List<Produto> all() {
+        return produtoRepository.findAll();
     }
 
 

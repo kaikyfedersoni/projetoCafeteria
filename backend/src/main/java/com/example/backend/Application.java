@@ -1,9 +1,5 @@
 package com.example.backend;
 
-import com.example.backend.controller.ProdutoController;
-
-import com.example.backend.model.Produto;
-import com.example.backend.service.ProdutoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
