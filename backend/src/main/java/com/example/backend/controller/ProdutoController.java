@@ -1,11 +1,13 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.ProdutoRequest;
+import com.example.backend.dto.ProdutoResponse;
 import com.example.backend.model.Produto;
+import com.example.backend.repository.ProdutoRepository;
 import com.example.backend.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,21 +15,20 @@ import java.util.List;
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    private ProdutoService produtoService;
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    public ProdutoController(ProdutoService produtoService)
-    {
-    this.produtoService = produtoService;
+    public ProdutoController(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
     }
-public ProdutoController(){}
-
-    @GetMapping
-    public List<Produto> getAll(){
 
 
-        return produtoService.listar();
+    @PostMapping
+    public Produto inserir(@RequestBody ProdutoRequest request){
+        Produto produto = request.toProduto();
+        return produtoRepository.save(produto);
     }
+
+
 
 
 }

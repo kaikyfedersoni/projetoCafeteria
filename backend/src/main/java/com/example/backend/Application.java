@@ -1,25 +1,23 @@
 package com.example.backend;
 
+import com.example.backend.controller.ProdutoController;
+
 import com.example.backend.model.Produto;
 import com.example.backend.service.ProdutoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
-public class Application {
-
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-		System.out.println("It`s online");
-		ProdutoService produtoService = new ProdutoService();
-		Produto produto = new Produto();
-
-		produto.setNome("Produto 1");
-		produto.setDescricao("Produto 1");
-		produto.setPreco(1.0);
-		//produtoService.salvar(produto);
-
+public class Application  {
+	public static void main(String[] args) throws JsonProcessingException {
+		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+//		ProdutoService produtoService = ctx.getBean(ProdutoService.class);
+//		ProdutoController produtoController = new ProdutoController(produtoService);
+		System.out.println("It's online");
 
 	}
+
 
 }

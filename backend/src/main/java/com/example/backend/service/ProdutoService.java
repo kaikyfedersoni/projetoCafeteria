@@ -2,7 +2,9 @@ package com.example.backend.service;
 
 import com.example.backend.model.Produto;
 import com.example.backend.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
+    @Autowired
     public ProdutoService(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
@@ -17,20 +20,24 @@ public class ProdutoService {
     public ProdutoService() {
 
     }
-
-    public void salvar(Produto produto) {
+    @Transactional
+    public Produto salvar(Produto produto) {
         boolean existe = produtoRepository.existsById(produto.getId());
         if (existe) {
-            throw new RuntimeException("Driver already exists");
+            throw new RuntimeException("Produto já existe");
         }
-        produtoRepository.save(produto);
+        return produtoRepository.save(produto);
     }
 
-    public void excluir(Produto produto) {
+    @Transactional
+    public void excluir(Long id) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
         produtoRepository.delete(produto);
     }
 
-    public void atualizar(Produto produtoSelecionado, Long idProduto ) {
+    @Transactional
+    public Produto atualizar(Produto produtoSelecionado, Long idProduto ) {
 
         Produto produtoAtual = produtoRepository.findById(idProduto)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
@@ -38,12 +45,13 @@ public class ProdutoService {
         produtoAtual.setNome(produtoSelecionado.getNome());
         produtoAtual.setDescricao(produtoSelecionado.getDescricao());
         produtoAtual.setPreco(produtoSelecionado.getPreco());
-        produtoRepository.save(produtoAtual);
+        return produtoRepository.save(produtoAtual);
     }
-    public List<Produto> listar(){
-        List<Produto> produtos = produtoRepository.findAll();
 
-        return produtos;
+    @Transactional(readOnly = true)
+    public List<Produto> listar(){
+        return produtoRepository.findAll();
+
     }
 
 
