@@ -4,7 +4,9 @@ import com.example.backend.model.Atendente;
 import com.example.backend.model.Gerente;
 import com.example.backend.repository.AtendenteRepository;
 import com.example.backend.repository.GerenteRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,7 +40,6 @@ public class GerenteController {
                     gerente.setCpf(novoGerente.getCpf());
                     gerente.setLogin(novoGerente.getLogin());
                     gerente.setSenha(novoGerente.getSenha());
-                    gerente.setNumeroDeFuncionariosGerenciados(novoGerente.getNumeroDeFuncionariosGerenciados());
                     return gerenteRepository.save(gerente);
                 })
                 .orElseGet(() -> {
@@ -54,7 +55,9 @@ public class GerenteController {
 
     @DeleteMapping("/{id}")
     public void deleteGerente(@PathVariable Long id) {
-        gerenteRepository.deleteById(id);
+        Gerente gerente = gerenteRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Gerente not found for this id :: " + id));
+        gerenteRepository.delete(gerente);
     }
 
 

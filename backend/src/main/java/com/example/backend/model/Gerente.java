@@ -1,24 +1,18 @@
 package com.example.backend.model;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("Gerente")
 public class Gerente extends Funcionario{
-    private int numeroDeFuncionariosGerenciados;
 
-    @OneToMany(mappedBy ="gerente")
-    private List<Atendente> atendentes  ;
-
-    public int getNumeroDeFuncionariosGerenciados() {
-        return numeroDeFuncionariosGerenciados;
-    }
-
-    public void setNumeroDeFuncionariosGerenciados(int numeroDeFuncionariosGerenciados) {
-        this.numeroDeFuncionariosGerenciados = numeroDeFuncionariosGerenciados;
-    }
+    @OneToMany(mappedBy ="gerente",cascade = CascadeType.ALL)
+    private List<Atendente> atendentes;
 
     public List<Atendente> getAtendentes() {
         return atendentes;
