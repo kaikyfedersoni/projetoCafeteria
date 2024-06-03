@@ -11,15 +11,10 @@ import java.util.List;
 @DiscriminatorValue("Gerente")
 public class Gerente extends Funcionario{
 
-    @OneToMany(mappedBy ="gerente",cascade = CascadeType.ALL)
-    private List<Atendente> atendentes;
-
-    public List<Atendente> getAtendentes() {
-        return atendentes;
+    public Gerente() {
     }
 
-    public void setAtendentes(List<Atendente> atendentes) {
-        this.atendentes = atendentes;
+    public Gerente(String cpf, String nome, String senha, String login) {
+        super(cpf, nome, senha, login);
     }
-
 }
