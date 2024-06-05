@@ -23,7 +23,7 @@ public class AtendenteController {
     }
 
     @PostMapping
-    public Atendente salvar(@RequestBody Atendente atendente, @RequestParam Long gerenteId) {
+    public Atendente salvarAtendente(@RequestBody Atendente atendente, @RequestParam Long gerenteId) {
         Gerente gerente = gerenteRepository.findById(gerenteId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Gerente not found for this id :: " + gerenteId));
         atendente.setGerente(gerente);
@@ -31,7 +31,7 @@ public class AtendenteController {
     }
 
     @PutMapping("/{id}")
-    public Atendente updateAtendente(@RequestBody Atendente novoAtendente, @PathVariable Long id) {
+    public Atendente atualizarAtendente(@RequestBody Atendente novoAtendente, @PathVariable Long id) {
         return atendenteRepository.findById(id)
                 .map(atendente -> {
                     atendente.setNome(novoAtendente.getNome());
@@ -60,14 +60,14 @@ public class AtendenteController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAtendente(@PathVariable Long id) {
+    public void excluirAtendente(@PathVariable Long id) {
         Atendente atendente = atendenteRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Atendente not found for this id :: " + id));
         atendenteRepository.delete(atendente);
     }
 
     @GetMapping
-    public List<Atendente> listar() {
+    public List<Atendente> listarAtendente() {
         return atendenteRepository.findAll();
     }
 }

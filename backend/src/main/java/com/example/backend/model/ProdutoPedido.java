@@ -8,14 +8,14 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class ProdutoPedido {
     @Id @GeneratedValue
-    private Long idProduto;
+    private Long id;
     @OneToOne
     private Produto produto;
 
     private int quantidade;
 
-    public Long getIdProduto() {
-        return idProduto;
+    public Long getId() {
+        return id;
     }
 
     public ProdutoPedido(){}
@@ -25,8 +25,8 @@ public class ProdutoPedido {
         this.quantidade = quantidade;
     }
 
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public void setId(Long idProduto) {
+        this.id = id;
     }
 
     public Produto getProduto() {

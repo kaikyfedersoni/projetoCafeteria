@@ -28,12 +28,12 @@ public class GerenteController {
     }
 
     @PostMapping
-    public Gerente createGerente(@RequestBody Gerente gerente) {
+    public Gerente salvarGerente(@RequestBody Gerente gerente) {
         return gerenteRepository.save(gerente);
     }
 
     @PutMapping("/{id}")
-    public Gerente updateGerente(@PathVariable Long id, @RequestBody Gerente novoGerente) {
+    public Gerente atualizarGerente(@PathVariable Long id, @RequestBody Gerente novoGerente) {
         return gerenteRepository.findById(id)
                 .map(gerente -> {
                     gerente.setNome(novoGerente.getNome());
@@ -49,12 +49,12 @@ public class GerenteController {
     }
 
     @GetMapping
-    public List<Gerente> getAllGerentes() {
+    public List<Gerente> listarGerentes() {
         return gerenteRepository.findAll();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteGerente(@PathVariable Long id) {
+    public void excluirGerente(@PathVariable Long id) {
         Gerente gerente = gerenteRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Gerente not found for this id :: " + id));
         gerenteRepository.delete(gerente);

@@ -34,7 +34,7 @@ public class ProdutoPedidoController {
                     return produtoPedidoRepository.save(produtoPedido);
                 })
                 .orElseGet(() -> {
-                    novoProdutoPedido.setIdProduto(id);
+                    novoProdutoPedido.setId(id);
                     return produtoPedidoRepository.save(novoProdutoPedido);
                 });
     }

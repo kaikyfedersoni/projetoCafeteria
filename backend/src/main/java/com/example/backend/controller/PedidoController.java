@@ -21,18 +21,18 @@ public class PedidoController {
     }
 
     @PostMapping
-    public Pedido salvar(@RequestBody Pedido pedido) {
+    public Pedido salvarPedido(@RequestBody Pedido pedido) {
+        pedido.setValorTotal(pedido.calcularValorTotal());
         return pedidoRepository.save(pedido);
     }
 
     @PutMapping("/{id}")
-    public Pedido updatePedido(@RequestBody Pedido novoPedido, @PathVariable Long id) {
+    public Pedido atualizarPedido(@RequestBody Pedido novoPedido, @PathVariable Long id) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
                     pedido.setProdutosPedidos(novoPedido.getProdutosPedidos());
                     pedido.setDestinatario(novoPedido.getDestinatario());
                     pedido.setStatus(novoPedido.isStatus());
-                    pedido.setValor(novoPedido.getValor());
                     return pedidoRepository.save(pedido);
                 })
                 .orElseGet(() -> {
@@ -42,14 +42,14 @@ public class PedidoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletePedido(@PathVariable Long id) {
+    public void excluirPedido(@PathVariable Long id) {
         Pedido pedido = pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido not found for this id :: " + id));
         pedidoRepository.delete(pedido);
     }
 
     @GetMapping
-    public List<Pedido> listar() {
+    public List<Pedido> listarPedido() {
         return pedidoRepository.findAll();
     }
 

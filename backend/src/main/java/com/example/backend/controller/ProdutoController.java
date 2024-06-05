@@ -19,17 +19,17 @@ public class ProdutoController {
 
 
     @PostMapping
-    public Produto inserir(@RequestBody Produto produto){
+    public Produto salvarProduto(@RequestBody Produto produto){
         return produtoRepository.save(produto);
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
+    public void excluirProduto(@PathVariable Long id) {
         produtoRepository.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public Produto atualizar(@RequestBody Produto novoProduto, @PathVariable Long id) {
+    public Produto atualizarProduto(@RequestBody Produto novoProduto, @PathVariable Long id) {
         return produtoRepository.findById(id)
                 .map(produto -> {
                     produto.setNome(novoProduto.getNome());
@@ -44,7 +44,7 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public List<Produto> all() {
+    public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
     }
 
