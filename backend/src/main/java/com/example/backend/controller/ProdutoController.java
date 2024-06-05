@@ -1,6 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.dto.ProdutoRequest;
+
 import com.example.backend.model.Produto;
 import com.example.backend.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;

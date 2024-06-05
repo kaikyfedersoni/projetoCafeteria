@@ -1,15 +1,14 @@
 package com.example.backend;
 
-import com.example.backend.controller.AtendenteController;
-import com.example.backend.controller.GerenteController;
-import com.example.backend.controller.ProdutoController;
-import com.example.backend.model.Atendente;
-import com.example.backend.model.Gerente;
-import com.example.backend.model.Produto;
+import com.example.backend.controller.*;
+import com.example.backend.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class Application  {
@@ -40,6 +39,27 @@ public class Application  {
         atendente.setCpf("dbfuef");
         atendente.setGerente(gerente);
 		atendenteController.salvar(atendente, 1L);
+
+       ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
+       ProdutoPedido produtoPedido = new ProdutoPedido();
+       produtoPedido.setProduto(produto);
+       produtoPedido.setQuantidade(1);
+       produtoPedidoController.salvar(produtoPedido);
+       List<ProdutoPedido> produtosPedidos = new ArrayList<>();
+       produtosPedidos.add(produtoPedido);
+
+       PedidoController pedidoController = ctx.getBean(PedidoController.class);
+       Pedido pedido = new Pedido();
+       pedido.setDestinatario("Destinatario 1");
+       pedido.setValor(15);
+       pedido.setProdutosPedidos(produtosPedidos);
+       pedido.setStatus(true);
+       pedido.setAtendente(atendente);
+       pedidoController.salvar(pedido);
+
+
+
+
 
 
         System.out.println("It's online");

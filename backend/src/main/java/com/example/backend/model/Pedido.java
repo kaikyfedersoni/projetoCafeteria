@@ -10,10 +10,19 @@ public class Pedido {
     private Long id;
     @OneToMany
     private List<ProdutoPedido> produtosPedidos;
-    @OneToOne
-    private Endereco endereco;
+    private String destinatario;
     private double valor;
     private boolean status;
+    @OneToOne
+    private Atendente atendente;
+
+    public Atendente getAtendente() {
+        return atendente;
+    }
+
+    public void setAtendente(Atendente atendente) {
+        this.atendente = atendente;
+    }
 
     public Long getId() {
         return id;
@@ -31,12 +40,12 @@ public class Pedido {
         this.produtosPedidos = produtosPedidos;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public String getDestinatario() {
+        return destinatario;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setDestinatario(String destinatario) {
+        this.destinatario = destinatario;
     }
 
     public double getValor() {
