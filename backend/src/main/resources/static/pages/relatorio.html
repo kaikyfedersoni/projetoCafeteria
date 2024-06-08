@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário e Grid</title>
+    <link rel="stylesheet" href="../styles/relatorio.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
-$END$
+<div class="container">
+
+    <script src="/scripts/script-navbar.js"></script>
+
+    <div class="content">
+        <div class="header">
+            <span>Relatorio de Pedidos</span>
+            <label for="antData">Dia de Início</label>
+            <input type="date" id="antData" />
+            <label for="depData">Dia de Fim</label>
+            <input type="date" id="depData" />
+            <button id="btnGerarRelatorio" onclick="gerar()">Gerar Relatório</button>
+        </div>
+
+        <div class="divTable">
+            <table>
+                <thead>
+                <tr>
+                    <th>Dia</th>
+                    <th>Descricao</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<script src="../scripts/script_relatorio.js"></script>
 </body>
 </html>

@@ -2,24 +2,30 @@
 
     import jakarta.persistence.*;
 
+    import java.util.Date;
+
     @Entity
     public class Pedido {
         @Id @GeneratedValue
         private Long id;
 
-        private String destinatario;
+        private Date dataPedido = new Date();
 
         private double valorTotal;
 
-        private boolean status;
+        private boolean isPago;
+
         @OneToOne
         private Atendente atendente;
 
-        public Atendente getAtendente() {
-            return atendente;
+        public Pedido() {
         }
 
-        public void setAtendente(Atendente atendente) {
+        public Pedido(Long id, Date dataPedido, double valorTotal, boolean isPago, Atendente atendente) {
+            this.id = id;
+            this.dataPedido = dataPedido;
+            this.valorTotal = valorTotal;
+            this.isPago = isPago;
             this.atendente = atendente;
         }
 
@@ -31,12 +37,12 @@
             this.id = id;
         }
 
-        public String getDestinatario() {
-            return destinatario;
+        public Date getDataPedido() {
+            return dataPedido;
         }
 
-        public void setDestinatario(String destinatario) {
-            this.destinatario = destinatario;
+        public void setDataPedido(Date dataPedido) {
+            this.dataPedido = dataPedido;
         }
 
         public double getValorTotal() {
@@ -47,17 +53,19 @@
             this.valorTotal = valorTotal;
         }
 
-        /*public double calcularValorTotal() {
-            return produtosPedidos.stream()
-                   .mapToDouble(produtoPedido -> produtoPedido.getProduto().getPreco() * produtoPedido.getQuantidade())
-                    .sum();
-        }*/
-
-        public boolean isStatus() {
-            return status;
+        public boolean isPago() {
+            return isPago;
         }
 
-        public void setStatus(boolean status) {
-            this.status = status;
+        public void setPago(boolean pago) {
+            isPago = pago;
+        }
+
+        public Atendente getAtendente() {
+            return atendente;
+        }
+
+        public void setAtendente(Atendente atendente) {
+            this.atendente = atendente;
         }
     }

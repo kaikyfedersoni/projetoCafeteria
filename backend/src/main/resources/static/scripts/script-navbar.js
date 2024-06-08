@@ -2,11 +2,11 @@ document.write(`
 
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="pages/funcionarios.html">Funcionários</a></li>
-        <li><a href="pages/produtos.html">Produtos</a></li>
-        <li><a href="pages/pedidos.html">Pedidos</a></li>
-        <li><a href="pages/relatorio.html">Gerar Relatório</a></li>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="funcionarios.html">Funcionários</a></li>
+        <li><a href="produtos.html">Produtos</a></li>
+        <li><a href="pedidos.html">Pedidos</a></li>
+        <li><a href="relatorio.html">Gerar Relatório</a></li>
       </ul>
     </nav>
 

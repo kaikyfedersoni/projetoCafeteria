@@ -6,6 +6,7 @@ import com.example.backend.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/produtos")
@@ -46,6 +47,11 @@ public class ProdutoController {
     @GetMapping
     public List<Produto> listarProdutos() {
         return produtoRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Produto> buscarProduto(@PathVariable Long id){
+        return produtoRepository.findById(id);
     }
 
 

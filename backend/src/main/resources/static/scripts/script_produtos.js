@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');
+const sId = document.querySelector('#m-id');
 const sNome = document.querySelector('#m-nome');
 const sDescricao = document.querySelector('#m-descricao');
 const sPreco = document.querySelector('#m-preco');
-const btnSalvarProduto = document.querySelector('#btnSalvarProduto');
-let id;
+
 
 function openModal(edit = false, index = 0) {
     modal.classList.add('active');
@@ -20,10 +20,11 @@ function openModal(edit = false, index = 0) {
     };
 
     if (edit) {
+        sId.value = index;
         fetch(`http://localhost:8080/produtos/${index}`)
             .then(response => response.json())
             .then(data => {
-                id = data.id;
+                sId.value = data.id;
                 sNome.value = data.nome;
                 sDescricao.value = data.descricao;
                 sPreco.value = data.preco;
@@ -59,59 +60,56 @@ function fetchProdutos() {
         .catch(error => console.error('Error:', error));
 }
 
-btnSalvarProduto.onclick = e => {
-    e.preventDefault();
+function salvarEditar(){
+    //e.preventDefault();
 
     if (sNome.value === '' || sDescricao.value === '' || sPreco.value === '') {
         return;
     }
 
-    const method = id ? 'PUT' : 'POST';
-    const url = id ? `http://localhost:8080/produtos/${id}` : 'http://localhost:8080/produtos';
+    const method = sId.value ? 'PUT' : 'POST';
+    const url = sId.value ? `http://localhost:8080/produtos/${sId.value}` : 'http://localhost:8080/produtos';
 
     fetch(url, {
         method: method,
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            nome: sNome.value,
-            descricao: sDescricao.value,
-            preco: parseFloat(sPreco.value),
-        }),
+        body: JSON.stringify({ id: sId.value, nome: sNome.value, descricao: sDescricao.value, preco: sPreco.value}),
     })
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Produto cadastrado com sucesso!');
-            modal.classList.remove('active');
+            if(method.match("POST"))
+                alert('Cadastro realizado com sucesso!');
+            else
+                alert("Cadastro editado com sucesso!")
             fetchProdutos();
             clearForm();
+            modal.classList.remove('active');
         })
-        .catch(error => {
+        .catch((error) => {
             console.error('Error:', error);
-            alert('Erro ao cadastrar o produto.' + error);
+            alert('Erro ao realizar o cadastro.' + error);
         });
-};
-
+}
 function deleteProduto(id) {
     fetch(`http://localhost:8080/produtos/${id}`, {
         method: 'DELETE',
     })
-        .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            alert('Produto excluído com sucesso!');
+            alert('Cadastro excluído com sucesso!');
             fetchProdutos();
         })
-        .catch(error => {
+        .catch((error) => {
             console.error('Error:', error);
-            alert('Erro ao excluir o produto.' + error);
+            alert('Erro ao excluir o cadastro.');
         });
 }
 
 function clearForm() {
-    id = undefined;
+    sId.value = 0;
     sNome.value = '';
     sDescricao.value = '';
     sPreco.value = '';

@@ -31,8 +31,7 @@ public class PedidoController {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
                     //pedido.setProdutosPedidos(novoPedido.getProdutosPedidos());
-                    pedido.setDestinatario(novoPedido.getDestinatario());
-                    pedido.setStatus(novoPedido.isStatus());
+                    pedido.setPago(novoPedido.isPago());
                     return pedidoRepository.save(pedido);
                 })
                 .orElseGet(() -> {
