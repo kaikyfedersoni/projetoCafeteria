@@ -18,13 +18,13 @@ public class Application  {
         ProdutoController produtoController = ctx.getBean(ProdutoController.class);
         Produto produto = new Produto();
         produto.setNome("Produto 1");
-        produto.setDescricao("Produto 1");
+        produto.setDescricao("Descricao Produto 1");
         produto.setPreco(1.0);
         produtoController.salvarProduto(produto);
 
         Produto produto2 = new Produto();
         produto2.setNome("Produto 2");
-        produto2.setDescricao("Produto 2");
+        produto2.setDescricao("Descricao Produto 2");
         produto2.setPreco(2.0);
         produtoController.salvarProduto(produto2);
 
@@ -47,14 +47,14 @@ public class Application  {
 		atendenteController.salvarAtendente(atendente, 1L);
 
 
-       ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
+       /*ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
        ProdutoPedido produtoPedido = new ProdutoPedido();
-       produtoPedido.setProduto(produto);
+       //produtoPedido.setProduto(produto);
        produtoPedido.setQuantidade(1);
        produtoPedidoController.salvar(produtoPedido);
 
        ProdutoPedido produtoPedido2 = new ProdutoPedido();
-       produtoPedido2.setProduto(produto2);
+       //produtoPedido2.setProduto(produto2);
        produtoPedido2.setQuantidade(2);
        produtoPedidoController.salvar(produtoPedido2);
        List<ProdutoPedido> produtosPedidos = new ArrayList<>();
@@ -68,7 +68,7 @@ public class Application  {
        pedido.setStatus(true);
        pedido.setAtendente(atendente);
        pedidoController.salvarPedido(pedido);
-
+       */
 
         System.out.println("It's online");
 

@@ -2,16 +2,10 @@
 
     import jakarta.persistence.*;
 
-    import java.util.ArrayList;
-    import java.util.List;
-
     @Entity
     public class Pedido {
         @Id @GeneratedValue
         private Long id;
-
-        @OneToMany
-        private List<ProdutoPedido> produtosPedidos = new ArrayList<>();
 
         private String destinatario;
 
@@ -37,15 +31,6 @@
             this.id = id;
         }
 
-        public List<ProdutoPedido> getProdutosPedidos() {
-            return produtosPedidos;
-        }
-
-        public void setProdutosPedidos(List<ProdutoPedido> produtosPedidos) {
-            this.produtosPedidos = produtosPedidos;
-            this.valorTotal = calcularValorTotal();
-        }
-
         public String getDestinatario() {
             return destinatario;
         }
@@ -62,11 +47,11 @@
             this.valorTotal = valorTotal;
         }
 
-        public double calcularValorTotal() {
+        /*public double calcularValorTotal() {
             return produtosPedidos.stream()
                    .mapToDouble(produtoPedido -> produtoPedido.getProduto().getPreco() * produtoPedido.getQuantidade())
                     .sum();
-        }
+        }*/
 
         public boolean isStatus() {
             return status;

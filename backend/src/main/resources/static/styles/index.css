@@ -1,0 +1,38 @@
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+nav{
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  justify-content: space-evenly;
+}
+
+nav>ul{
+    display: flex;
+    list-style: none;
+}
+
+nav>ul>li{
+    margin-right: 20px;
+
+}
+
+nav>ul>li>a{
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+

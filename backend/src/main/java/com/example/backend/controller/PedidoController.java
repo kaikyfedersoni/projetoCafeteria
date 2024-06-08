@@ -22,7 +22,7 @@ public class PedidoController {
 
     @PostMapping
     public Pedido salvarPedido(@RequestBody Pedido pedido) {
-        pedido.setValorTotal(pedido.calcularValorTotal());
+        //pedido.setValorTotal(pedido.calcularValorTotal());
         return pedidoRepository.save(pedido);
     }
 
@@ -30,7 +30,7 @@ public class PedidoController {
     public Pedido atualizarPedido(@RequestBody Pedido novoPedido, @PathVariable Long id) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
-                    pedido.setProdutosPedidos(novoPedido.getProdutosPedidos());
+                    //pedido.setProdutosPedidos(novoPedido.getProdutosPedidos());
                     pedido.setDestinatario(novoPedido.getDestinatario());
                     pedido.setStatus(novoPedido.isStatus());
                     return pedidoRepository.save(pedido);
