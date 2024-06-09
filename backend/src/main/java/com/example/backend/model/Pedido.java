@@ -9,24 +9,43 @@
         @Id @GeneratedValue
         private Long id;
 
+        private String comprador;
+
         private Date dataPedido = new Date();
 
         private double valorTotal;
 
-        private boolean isPago;
+        private boolean pago;
 
-        @OneToOne
-        private Atendente atendente;
+        //@OneToOne
+        //private Funcionario funcionario;
 
         public Pedido() {
         }
 
-        public Pedido(Long id, Date dataPedido, double valorTotal, boolean isPago, Atendente atendente) {
+        public Pedido(Long id, String comprador, Date dataPedido, double valorTotal, boolean pago) {
             this.id = id;
+            this.comprador = comprador;
             this.dataPedido = dataPedido;
             this.valorTotal = valorTotal;
-            this.isPago = isPago;
-            this.atendente = atendente;
+            this.pago = pago;
+        }
+
+        public Pedido(Long id, String comprador, Date dataPedido, double valorTotal, boolean pago, Funcionario atendente) {
+            this.id = id;
+            this.comprador = comprador;
+            this.dataPedido = dataPedido;
+            this.valorTotal = valorTotal;
+            this.pago = pago;
+            //this.funcionario = funcionario;
+        }
+
+        public String getComprador() {
+            return comprador;
+        }
+
+        public void setComprador(String comprador) {
+            this.comprador = comprador;
         }
 
         public Long getId() {
@@ -54,18 +73,20 @@
         }
 
         public boolean isPago() {
-            return isPago;
+            return pago;
         }
 
         public void setPago(boolean pago) {
-            isPago = pago;
+            this.pago = pago;
         }
 
-        public Atendente getAtendente() {
+        /*public Atendente getAtendente() {
             return atendente;
         }
 
         public void setAtendente(Atendente atendente) {
             this.atendente = atendente;
-        }
+        }*/
+
+
     }

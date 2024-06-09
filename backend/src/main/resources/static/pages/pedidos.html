@@ -15,7 +15,7 @@
         <div class="content">
             <div class="header">
                 <span>Cadastro de Pedidos</span>
-                <button onclick="openModal()" id="new">Incluir</button>
+                <button onclick="openModal()" id="new">Novo Pedido</button>
             </div>
 
             <div class="divTable">
@@ -24,7 +24,7 @@
                         <tr>
                             <th>ID do Pedido</th>
                             <th>Comprador</th>
-                            <th>Produtos</th>
+                            <th>Data</th>
                             <th>Valor Total</th>
                             <th>Editar</th>
                             <th>Excluir</th>
@@ -38,7 +38,7 @@
             <div class="modal-container">
                 <div class="modal">
                     <form id="pedido-form">
-                        <input type="hidden" id="id" />
+                        <input type="hidden" id="m-id" />
                         <label for="comprador">Nome do Comprador</label>
                         <input id="comprador" type="text" required />
 

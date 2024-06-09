@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootApplication
@@ -28,23 +29,15 @@ public class Application  {
         produto2.setPreco(2.0);
         produtoController.salvarProduto(produto2);
 
-        GerenteController gerenteController = ctx.getBean(GerenteController.class);
-        Gerente gerente = new Gerente();
-        gerente.setNome("Gerente 1");
-        gerente.setLogin("Gerente 1");
-        gerente.setSenha("Gerente 1");
-        gerente.setCpf("Gerente 1");
-		gerenteController.salvarGerente(gerente);
+        PedidoController pedidoController = ctx.getBean(PedidoController.class);
+        Date data = new Date();
+        Pedido pedido = new Pedido((long) 1L, "José", data, 56.89, false);
+        pedidoController.salvarPedido(pedido);
+        pedido = new Pedido((long) 2L, "Carlos", data, 59, true);
+        pedidoController.salvarPedido(pedido);
+        pedido = new Pedido((long) 3L, "Carla", data, 556.81, false);
+        pedidoController.salvarPedido(pedido);
 
-
-        AtendenteController atendenteController = ctx.getBean(AtendenteController.class);
-        Atendente atendente = new Atendente();
-        atendente.setNome("Atendente 1");
-        atendente.setLogin("Atendente 1");
-        atendente.setSenha("Atendente 1");
-        atendente.setCpf("dbfuef");
-        atendente.setGerente(gerente);
-		atendenteController.salvarAtendente(atendente, 1L);
 
 
        /*ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);

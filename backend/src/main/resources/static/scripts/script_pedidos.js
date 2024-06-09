@@ -8,7 +8,7 @@ const sComprador = document.querySelector('#comprador');
 const sProdutos = document.querySelector('#produtos');
 const sValorTotal = document.querySelector('#valorTotal');
 const btnSalvarPedido = document.querySelector('#btnSalvarPedido');
-let id;
+const sId = document.querySelector("#m-id");
 
 function openModal(edit = false, index = 0) {
   modal.classList.add('active');
@@ -23,7 +23,7 @@ function openModal(edit = false, index = 0) {
       fetch(`http://localhost:8080/pedido/${index}`)
           .then(response => response.json())
           .then(data => {
-              id = data.id;
+              sId.value = data.id;
               sComprador.value = data.comprador;
               sProdutos.value = data.produtos;
               sValorTotal.value = data.valorTotal;
@@ -34,8 +34,16 @@ function openModal(edit = false, index = 0) {
   }
 }
 
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
+
 function fetchPedidos() {
-  fetch('http://localhost:8080/pedido')
+  fetch('http://localhost:8080/pedidos/naoPagos')
       .then(response => response.json())
       .then(data => {
           tbody.innerHTML = '';
@@ -45,7 +53,7 @@ function fetchPedidos() {
               tr.innerHTML = `
                   <td>${pedido.id}</td>
                   <td>${pedido.comprador}</td>
-                  <td>${pedido.produtos}</td>
+                  <td>${formatDate(pedido.dataPedido)}</td>
                   <td>${pedido.valorTotal}</td>
                   <td class="acao">
                       <button onclick="openModal(true, ${pedido.id})"><i class='bx bx-edit'></i></button>

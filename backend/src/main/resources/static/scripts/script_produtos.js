@@ -93,6 +93,8 @@ function salvarEditar(){
             alert('Erro ao realizar o cadastro.' + error);
         });
 }
+
+
 function deleteProduto(id) {
     fetch(`http://localhost:8080/produtos/${id}`, {
         method: 'DELETE',

@@ -9,7 +9,7 @@ const sCpf = document.querySelector('#m-cpf');
 const sEmail = document.querySelector('#m-email');
 const sSenha = document.querySelector('#m-senha');
 const btnSalvar = document.querySelector('#btnSalvar');
-let id;
+const sId = document.querySelector('#m-id');
 
 function openModal(edit = false, index = 0) {
     modal.classList.add('active');
@@ -21,13 +21,14 @@ function openModal(edit = false, index = 0) {
     };
 
     if (edit) {
+        sId.value = index;
         fetch(`http://localhost:8080/funcionarios/${index}`)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('id').value = data.id;
+                sId.value = index;
                 sNome.value = data.nome;
                 sCpf.value = data.cpf;
-                sEmail.value = data.login; 
+                sEmail.value = data.login;
                 sSenha.value = data.senha;
             })
             .catch(error => console.error('Error:', error));
@@ -63,14 +64,13 @@ function fetchFuncionarios() {
 
 btnSalvar.onclick = e => {
     e.preventDefault();
-    const id = document.getElementById('id').value;
 
     if (sNome.value === '' || sCpf.value === '' || sEmail.value === '' || sSenha.value === '') {
         return;
     }
 
-    const method = id ? 'PUT' : 'POST';
-    const url = id ? `http://localhost:8080/funcionarios/${id}` : 'http://localhost:8080/funcionarios';
+    const method = sId.value ? 'PUT' : 'POST';
+    const url = sId.value ? `http://localhost:8080/funcionarios/${sId.value}` : 'http://localhost:8080/funcionarios';
 
     fetch(url, {
         method: method,
@@ -78,9 +78,10 @@ btnSalvar.onclick = e => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+            id : sId.value,
             nome: sNome.value,
             cpf: sCpf.value,
-            login: sEmail.value, 
+            login: sEmail.value,
             senha: sSenha.value,
         }),
     })
@@ -102,7 +103,6 @@ function deleteFuncionario(id) {
     fetch(`http://localhost:8080/funcionarios/${id}`, {
         method: 'DELETE',
     })
-        .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
             alert('Cadastro excluído com sucesso!');
@@ -115,9 +115,10 @@ function deleteFuncionario(id) {
 }
 
 function clearForm() {
-    document.getElementById('id').value = '';
+    sId.value = 0;
     sNome.value = '';
     sCpf.value = '';
     sEmail.value = '';
     sSenha.value = '';
 }
+

@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pedido")
+@RequestMapping("/pedidos")
 public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
@@ -57,4 +57,11 @@ public class PedidoController {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido not found for this id :: " + id));
     }
+
+    @GetMapping("/naoPagos")
+    public List<Pedido> naoPagos() {
+        return pedidoRepository.findByPagoFalse();
+    }
+
+
 }
