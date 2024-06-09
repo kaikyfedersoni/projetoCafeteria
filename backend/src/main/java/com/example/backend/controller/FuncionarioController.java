@@ -5,6 +5,7 @@ import com.example.backend.repository.FuncionarioRepository;
 import org.springframework.web.bind.annotation.*;
 import com.example.backend.model.Funcionario;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/funcionarios")
@@ -40,6 +41,11 @@ public class FuncionarioController {
                     novoFuncionario.setId(id);
                     return funcionarioRepository.save(novoFuncionario);
                 });
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Funcionario> buscarPorId(@PathVariable Long id) {
+        return funcionarioRepository.findById(id);
     }
 
     @GetMapping
