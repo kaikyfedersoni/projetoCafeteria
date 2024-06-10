@@ -18,6 +18,8 @@ function fetchItems(event) {
         return;
     }
 
+    let total = 0;
+
     const url = `http://localhost:8080/pedidos/buscarPeriodo?startDate=${startDate}&endDate=${endDate}`;
 
     fetch(url)
@@ -44,9 +46,14 @@ function fetchItems(event) {
                     </td>
                 `;
                 tbody.appendChild(tr);
+                total = total + pedido.valorTotal;
+
             });
+            document.querySelector("#sTotal").innerHTML = "R$ " +  total.toFixed(2);
         })
         .catch(error => console.error('Erro:', error));
+
+
 }
 
 function formatDate(dateString) {

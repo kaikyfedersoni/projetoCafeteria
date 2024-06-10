@@ -13,6 +13,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Gadu05"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Gadu05/projetoCafeteria.git",
+    "accountId": "56f43f16-e0ff-48de-a253-f093a944970c"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -31,7 +43,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Administrador de TI/Documents/prjCafeteria/backend",
+    "last_opened_file_path": "C:/Users/G43D0/Documents/cafeteria/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,6 +73,7 @@
       <workItem from="1715648034600" duration="53000" />
       <workItem from="1715648535677" duration="914000" />
       <workItem from="1716833900597" duration="26000" />
+      <workItem from="1717954558734" duration="13000" />
     </task>
     <servers />
   </component>

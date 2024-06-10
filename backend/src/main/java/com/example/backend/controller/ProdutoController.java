@@ -54,7 +54,10 @@ public class ProdutoController {
         return produtoRepository.findById(id);
     }
 
-
+    @GetMapping("/nome/{nome}")
+    public List<Produto> buscarProdutoPorNome(@PathVariable String nome){
+        return produtoRepository.findAllByNomeContainingIgnoreCaseOrderByNome(nome);
+    }
 
 
 }

@@ -1,13 +1,12 @@
 package com.example.backend.controller;
 
 
-import com.example.backend.model.Produto;
+import com.example.backend.model.Pedido;
 import com.example.backend.model.Produto_Pedido;
+import com.example.backend.repository.PedidoRepository;
 import com.example.backend.repository.ProdutoPedidoRepository;
-import com.example.backend.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,11 +15,12 @@ import java.util.Optional;
 public class ProdutoPedidoController {
 
     private final ProdutoPedidoRepository produtoPedidoRepository;
+    private final PedidoRepository pedidoRepository;
 
-    public ProdutoPedidoController(ProdutoPedidoRepository produtoPedidoRepository) {
+    public ProdutoPedidoController(ProdutoPedidoRepository produtoPedidoRepository, PedidoRepository pedidoRepository) {
         this.produtoPedidoRepository = produtoPedidoRepository;
+        this.pedidoRepository = pedidoRepository;
     }
-
 
     @PostMapping
     public Produto_Pedido salvarProdutoPedido(@RequestBody Produto_Pedido produtoPedido){
@@ -55,6 +55,12 @@ public class ProdutoPedidoController {
     @GetMapping("/{id}")
     public Optional<Produto_Pedido> buscarProduto(@PathVariable Long id){
         return produtoPedidoRepository.findById(id);
+    }
+
+    @GetMapping("/pedidos/{id}")
+    public List<Produto_Pedido> buscarPedidosPorId(@PathVariable Long id){
+        Optional<Pedido> pedido = pedidoRepository.findById(id);
+        return produtoPedidoRepository.findAllByPedido(pedido.get());
     }
 
 
