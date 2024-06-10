@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário e Grid</title>
     <link rel="stylesheet" href="../styles/detalhes-produto.css">
-    <script src="../scripts/script_funcionarios.js" defer></script>
+    <script src="../scripts/script_detalhespedido.js" defer></script>
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -14,6 +14,7 @@
     <script src="/scripts/script-navbar.js"></script>
     <div class="content">
         <div class="header">
+            <input type="hidden" id="m-id" />
             <span>😊</span>
             <button onclick="openModal()" id="new">Incluir</button>
         </div>
@@ -29,23 +30,24 @@
                     <th class="acao">Excluir</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbody">
                 </tbody>
             </table>
         </div>
+
+
 
         <div class="modal-container">
             <div class="modal">
                 <form>
                     <span>Buscar Produtos</span>
-                    <input type="hidden" id="m-id" />
                     <label for="m-nome">Nome</label>
                     <input id="m-nome" type="text" required />
 
-                    <button id="btnBuscar">Buscar</button>
+                    <button id="btnBuscar" onclick="buscarProduto(event)">Buscar</button>
                 </form>
 
-                <div class="divTable">
+                <div class="divTable2">
                     <table>
                         <thead>
                         <tr>
@@ -56,7 +58,7 @@
                             <th class="acao">Adicionar</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="m-tbody">
                         </tbody>
                     </table>
                 </div>
@@ -65,6 +67,6 @@
         </div>
     </div>
 </div>
-<script src="script.js"></script>
+
 </body>
 </html>

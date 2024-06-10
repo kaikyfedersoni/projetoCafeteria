@@ -13,10 +13,27 @@ public class Produto_Pedido {
     private Double preco;
     private int quantidade;
 
-    @OneToOne
+    @ManyToOne
     private Pedido pedido;
 
     public Produto_Pedido() {    }
+
+    public Produto_Pedido(Long id, String nome, String descricao, Double preco, int quantidade, Pedido pedido) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.pedido = pedido;
+    }
+
+    public Produto_Pedido(String nome, String descricao, Double preco, int quantidade, Pedido pedido) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.quantidade = quantidade;
+        this.pedido = pedido;
+    }
 
     public Long getId() {
         return id;

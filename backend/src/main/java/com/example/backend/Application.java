@@ -34,11 +34,31 @@ public class Application  {
         LocalDate data = LocalDate.now();
         Pedido pedido = new Pedido((long) 1L, "José", data, 56.89, false);
         pedidoController.salvarPedido(pedido);
+
+
+
+
+
         pedido = new Pedido((long) 2L, "Carlos", data, 59, true);
         pedidoController.salvarPedido(pedido);
+
+
+        Produto_Pedido produtoPedido = new Produto_Pedido();
+        ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
+        produtoPedido = new Produto_Pedido((long)1L, "Produto 01", "Descricao 02", 26.68, 2, pedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido = new Produto_Pedido((long)2L,"Produto 02", "Descricao 03", 26.68, 6, pedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido = new Produto_Pedido((long)3L,"Produto 05", "Descricao 05", 26.68, 8, pedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+
+
         pedido = new Pedido((long) 3L, "Carla", data, 556.81, false);
         pedidoController.salvarPedido(pedido);
-
+        produtoPedido = new Produto_Pedido("Produto 02", "Descricao 03", 26.68, 6, pedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido = new Produto_Pedido("Produto 05", "Descricao 05", 26.68, 8, pedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido);
 
 
        /*ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
