@@ -15,12 +15,19 @@
 
     <div class="content">
         <div class="header">
-            <span>Relatorio de Pedidos</span>
-            <label for="antData">Dia de Início</label>
-            <input type="date" id="antData" />
-            <label for="depData">Dia de Fim</label>
-            <input type="date" id="depData" />
-            <button id="btnGerarRelatorio" onclick="gerar()">Gerar Relatório</button>
+
+
+                <span>Relatorio de Pedidos</span>
+            <form onsubmit="fetchItems(event)">
+                <label for="startDate">Dia de Início</label>
+                <input type="date" id="startDate" name="startDate" />
+                <label for="endDate">Dia de Fim</label>
+                <input type="date" id="endDate" name="endDate"/>
+
+
+                <button id="btnGerarRelatorio">Gerar Relatório</button>
+            </form>
+
         </div>
 
         <div class="divTable">
