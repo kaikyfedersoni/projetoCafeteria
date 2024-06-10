@@ -2,6 +2,7 @@
 
     import jakarta.persistence.*;
 
+    import java.time.LocalDate;
     import java.util.Date;
 
     @Entity
@@ -11,7 +12,7 @@
 
         private String comprador;
 
-        private Date dataPedido = new Date();
+        private LocalDate dataPedido;
 
         private double valorTotal;
 
@@ -23,7 +24,7 @@
         public Pedido() {
         }
 
-        public Pedido(Long id, String comprador, Date dataPedido, double valorTotal, boolean pago) {
+        public Pedido(Long id, String comprador, LocalDate dataPedido, double valorTotal, boolean pago) {
             this.id = id;
             this.comprador = comprador;
             this.dataPedido = dataPedido;
@@ -31,7 +32,7 @@
             this.pago = pago;
         }
 
-        public Pedido(Long id, String comprador, Date dataPedido, double valorTotal, boolean pago, Funcionario atendente) {
+        public Pedido(Long id, String comprador, LocalDate dataPedido, double valorTotal, boolean pago, Funcionario atendente) {
             this.id = id;
             this.comprador = comprador;
             this.dataPedido = dataPedido;
@@ -56,11 +57,11 @@
             this.id = id;
         }
 
-        public Date getDataPedido() {
+        public LocalDate getDataPedido() {
             return dataPedido;
         }
 
-        public void setDataPedido(Date dataPedido) {
+        public void setDataPedido(LocalDate dataPedido) {
             this.dataPedido = dataPedido;
         }
 

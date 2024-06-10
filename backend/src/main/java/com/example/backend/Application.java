@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Application  {
         produtoController.salvarProduto(produto2);
 
         PedidoController pedidoController = ctx.getBean(PedidoController.class);
-        Date data = new Date();
+        LocalDate data = LocalDate.now();
         Pedido pedido = new Pedido((long) 1L, "José", data, 56.89, false);
         pedidoController.salvarPedido(pedido);
         pedido = new Pedido((long) 2L, "Carlos", data, 59, true);

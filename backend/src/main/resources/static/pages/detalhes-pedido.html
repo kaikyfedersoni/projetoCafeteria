@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário e Grid</title>
+    <link rel="stylesheet" href="../styles/detalhes-produto.css">
+    <script src="../scripts/script_funcionarios.js" defer></script>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+<div class="container">
+    <script src="/scripts/script-navbar.js"></script>
+    <div class="content">
+        <div class="header">
+            <span>😊</span>
+            <button onclick="openModal()" id="new">Incluir</button>
+        </div>
+
+        <div class="divTable">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th class="acao">Editar</th>
+                    <th class="acao">Excluir</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal-container">
+            <div class="modal">
+                <form>
+                    <span>Buscar Produtos</span>
+                    <input type="hidden" id="m-id" />
+                    <label for="m-nome">Nome</label>
+                    <input id="m-nome" type="text" required />
+
+                    <button id="btnBuscar">Buscar</button>
+                </form>
+
+                <div class="divTable">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descricao</th>
+                            <th>Preco</th>
+                            <th>Quantidade</th>
+                            <th class="acao">Adicionar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
