@@ -13,6 +13,8 @@ public class Produto_Pedido {
     private Double preco;
     private int quantidade;
 
+    private double valorTotal;
+
     @ManyToOne
     private Pedido pedido;
 
@@ -83,7 +85,14 @@ public class Produto_Pedido {
         this.pedido = pedido;
     }
 
+    public void setValorTotal() {
+        this.valorTotal = this.preco * this.quantidade;
+    }
 
+    public double getValorTotal() {
+        setValorTotal();
+        return this.valorTotal;
+    }
 
 
 }

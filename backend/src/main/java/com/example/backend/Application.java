@@ -46,19 +46,28 @@ public class Application  {
         Produto_Pedido produtoPedido = new Produto_Pedido();
         ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
         produtoPedido = new Produto_Pedido((long)1L, "Produto 01", "Descricao 02", 26.68, 2, pedido);
-        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido.setValorTotal();
+        produtoPedidoController.salvarProdutoPedido(produtoPedido, produto.getId());
         produtoPedido = new Produto_Pedido((long)2L,"Produto 02", "Descricao 03", 26.68, 6, pedido);
-        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido.setValorTotal();
+        produtoPedidoController.salvarProdutoPedido(produtoPedido, produto.getId());
         produtoPedido = new Produto_Pedido((long)3L,"Produto 05", "Descricao 05", 26.68, 8, pedido);
-        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedido.setValorTotal();
+        produtoPedidoController.salvarProdutoPedido(produtoPedido, produto.getId());
+
+        pedidoController.calcularTotal(pedido.getId());
+
+
 
 
         pedido = new Pedido((long) 3L, "Carla", data, 556.81, false);
         pedidoController.salvarPedido(pedido);
         produtoPedido = new Produto_Pedido("Produto 02", "Descricao 03", 26.68, 6, pedido);
-        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido, produto.getId());
         produtoPedido = new Produto_Pedido("Produto 05", "Descricao 05", 26.68, 8, pedido);
-        produtoPedidoController.salvarProdutoPedido(produtoPedido);
+        produtoPedidoController.salvarProdutoPedido(produtoPedido, produto.getId());
+
+        pedidoController.calcularTotal(pedido.getId());
 
 
        /*ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);

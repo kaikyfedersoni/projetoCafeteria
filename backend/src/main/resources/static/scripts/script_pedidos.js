@@ -42,6 +42,10 @@ function formatDate(dateString) {
     return `${day}/${month}/${year}`;
 }
 
+function editarPedido(index){
+    window.location.href = `http://localhost:8080/pages/detalhes-pedido.html?id=${index}`;
+}
+
 function fetchPedidos() {
   fetch('http://localhost:8080/pedidos/naoPagos')
       .then(response => response.json())
@@ -56,10 +60,7 @@ function fetchPedidos() {
                   <td>${formatDate(pedido.dataPedido)}</td>
                   <td>${pedido.valorTotal}</td>
                   <td class="acao">
-                      <button onclick="openModal(true, ${pedido.id})"><i class='bx bx-edit'></i></button>
-                  </td>
-                  <td class="acao">
-                      <button onclick="deletePedido(${pedido.id})"><i class='bx bx-trash'></i></button>
+                      <button onclick="editarPedido(${pedido.id})" class="botao" >Detalhes</button>
                   </td>
               `;
               tbody.appendChild(tr);

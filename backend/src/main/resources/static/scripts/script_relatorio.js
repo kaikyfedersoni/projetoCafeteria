@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const tbody = document.querySelector('tbody');
 const sStartDate = document.querySelector("#startDate");
 const sEndDate = document.querySelector("#endDate");
+const valorTotal = document.querySelector("#TotalPedido");
 
 function fetchItems(event) {
     event.preventDefault();
@@ -41,15 +42,12 @@ function fetchItems(event) {
                     <td>${formatDate(pedido.dataPedido)}</td>
                     <td>${pedido.comprador}</td>
                     <td>R$ ${pedido.valorTotal.toFixed(2)}</td>
-                    <td class="acao">
-                        <button onclick="editarPedido(${pedido.id})"><i class='bx bx-edit'></i></button>
-                    </td>
                 `;
                 tbody.appendChild(tr);
                 total = total + pedido.valorTotal;
 
             });
-            document.querySelector("#sTotal").innerHTML = "R$ " +  total.toFixed(2);
+            valorTotal.innerHTML = "R$ " + total;
         })
         .catch(error => console.error('Erro:', error));
 

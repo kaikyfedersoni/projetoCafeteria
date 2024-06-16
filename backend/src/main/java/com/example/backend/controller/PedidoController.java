@@ -1,7 +1,9 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Pedido;
+import com.example.backend.model.Produto_Pedido;
 import com.example.backend.repository.PedidoRepository;
+import com.example.backend.repository.ProdutoPedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -19,15 +21,17 @@ import java.util.Optional;
 public class PedidoController {
 
     private final PedidoRepository pedidoRepository;
+    private final ProdutoPedidoRepository produtoPedidoRepository;
 
     @Autowired
-    public PedidoController(PedidoRepository pedidoRepository) {
+    public PedidoController(PedidoRepository pedidoRepository, ProdutoPedidoRepository produtoPedidoRepository) {
         this.pedidoRepository = pedidoRepository;
+        this.produtoPedidoRepository = produtoPedidoRepository;
     }
 
     @PostMapping
     public Pedido salvarPedido(@RequestBody Pedido pedido) {
-        //pedido.setValorTotal(pedido.calcularValorTotal());
+        pedido.setValorTotal(0);
         return pedidoRepository.save(pedido);
     }
 
@@ -35,7 +39,7 @@ public class PedidoController {
     public Pedido atualizarPedido(@RequestBody Pedido novoPedido, @PathVariable Long id) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
-                    //pedido.setProdutosPedidos(novoPedido.getProdutosPedidos());
+                    pedido.setValorTotal(calcularTotal(id));
                     pedido.setPago(novoPedido.isPago());
                     return pedidoRepository.save(pedido);
                 })
@@ -74,5 +78,21 @@ public class PedidoController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return pedidoRepository.getAllByDataPedidoBetweenAndPagoTrue(startDate, endDate);
     }
+
+    @GetMapping("/calcularTotal/{id}")
+    public double calcularTotal(@PathVariable Long id){
+
+        double total = 0;
+        Pedido pedido = getPedidoById(id);
+        List<Produto_Pedido> produtoPedidos = produtoPedidoRepository.findAllByPedido(pedido);
+        for (Produto_Pedido produtoPedido : produtoPedidos){
+            total += produtoPedido.getValorTotal();
+        }
+        pedido.setValorTotal(total);
+        pedidoRepository.save(pedido);
+        return total;
+
+    }
+
 
 }

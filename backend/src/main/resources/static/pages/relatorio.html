@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário e Grid</title>
+    <title>Relatório</title>
     <link rel="stylesheet" href="../styles/relatorio.css">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -30,9 +30,6 @@
 
         </div>
 
-        <span>TOTAL</span>
-        <span id="sTotal">R$ 00.00</span>
-
         <div class="divTable">
             <table>
                 <thead>
@@ -46,6 +43,20 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="divTable">
+            <table>
+                <thead id="thead">
+                <tr>
+                    <th>Total dos Pedidos</th>
+                    <th id="TotalPedido"></th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 <script src="../scripts/script_relatorio.js"></script>
 </body>

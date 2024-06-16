@@ -4,6 +4,7 @@
 
     import java.time.LocalDate;
     import java.util.Date;
+    import java.util.List;
 
     @Entity
     public class Pedido {
@@ -18,8 +19,8 @@
 
         private boolean pago;
 
-        //@OneToOne
-        //private Funcionario funcionario;
+        @OneToMany
+        private List<Produto_Pedido> produtoPedidos;
 
         public Pedido() {
         }

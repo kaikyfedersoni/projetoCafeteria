@@ -3,6 +3,8 @@ package com.example.backend.repository;
 import com.example.backend.model.Pedido;
 import com.example.backend.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
 import java.time.LocalDate;

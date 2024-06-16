@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchProdutos();
+    fetchPedido();
+    atualizarTotalPedido();
 });
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -12,6 +14,9 @@ const sId = document.querySelector('#m-id');
 const sNome = document.querySelector('#m-nome');
 const btnBuscar = document.querySelector("#btnBuscar");
 
+const thead = document.querySelector("#thead");
+const valorTotal = document.querySelector("#TotalPedido");
+
 
 function openModal(edit = false, index = 0) {
     modal.classList.add('active');
@@ -21,6 +26,31 @@ function openModal(edit = false, index = 0) {
             modal.classList.remove('active');
         }
     };
+
+    fetch(`http://localhost:8080/produtos`)
+        .then(response => response.json())
+        .then(data => {
+            m_tbody.innerHTML = '';
+            data.forEach(produto => {
+                let tr = document.createElement('tr');
+                tr.dataset.id = produto.id;
+                tr.innerHTML = `
+                    <form>
+                    <td>${produto.nome}</td>
+                    <td>${produto.descricao}</td>
+                    <td>R$ ${produto.preco.toFixed(2)}</td>
+                    <td class="acao">
+                        <input type="number" maxlength="999" required/>
+                    </td>
+                    <td class="acao" width="15%">
+                        <button onclick="incluirProduto(${produto.id})"><i></i>Adicionar</button>
+                    </td>
+                    </form>
+                `;
+                m_tbody.appendChild(tr);
+            });
+        })
+        .catch(error => console.error('Error:', error));
 
     if (edit) {
         sId.value = index;
@@ -42,14 +72,18 @@ function fetchProdutos() {
     fetch(`http://localhost:8080/produtosPedido/pedidos/${idPedido}`)
         .then(response => response.json())
         .then(data => {
+            let total = 0.0;
             tbody.innerHTML = '';
             data.forEach(produto => {
                 let tr = document.createElement('tr');
+                total = total + produto.valorTotal;
                 tr.dataset.id = produto.id;
                 tr.innerHTML = `
                     <td>${produto.nome}</td>
                     <td>${produto.descricao}</td>
                     <td>R$ ${produto.preco.toFixed(2)}</td>
+                    <td>${produto.quantidade}</td>
+                    <td>R$ ${produto.valorTotal.toFixed(2)}</td>
                     <td class="acao">
                         <button onclick="openModal(true, ${produto.id})"><i class='bx bx-edit'></i></button>
                     </td>
@@ -62,6 +96,25 @@ function fetchProdutos() {
         })
         .catch(error => console.error('Error:', error));
 }
+
+function fetchPedido() {
+    fetch(`http://localhost:8080/pedidos/${idPedido}`)
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector("#nomeCliente").innerHTML = "Pedido " + data.id.toString().padStart(3, '0') + " - Comprador: " + data.comprador;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function atualizarTotalPedido() {
+    fetch(`http://localhost:8080/pedidos/calcularTotal/${idPedido}`)
+        .then(response => response.json())
+        .then(data => {
+            valorTotal.innerHTML = "R$ " + data.toFixed(2);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 
 function buscarProduto(event){
 
@@ -86,10 +139,10 @@ function buscarProduto(event){
                     <td>${produto.descricao}</td>
                     <td>R$ ${produto.preco.toFixed(2)}</td>
                     <td class="acao">
-                        <input type="number" maxlength="1000" required/>
+                        <input type="number" maxlength="999" required/>
                     </td>
-                    <td class="acao">
-                        <button onclick="deleteProduto(${produto.id})"><i></i>Adicionar</button>
+                    <td class="acao" width="15%">
+                        <button onclick="incluirProduto(${produto.id})"><i></i>Adicionar</button>
                     </td>
                     </form>
                 `;
@@ -99,6 +152,8 @@ function buscarProduto(event){
         .catch(error => console.error('Error:', error));
 
 }
+
+
 
 function salvarEditar(){
     //e.preventDefault();

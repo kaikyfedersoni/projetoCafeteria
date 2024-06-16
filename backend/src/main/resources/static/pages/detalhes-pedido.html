@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário e Grid</title>
+    <title>Detalhes do Pedido</title>
     <link rel="stylesheet" href="../styles/detalhes-produto.css">
     <script src="../scripts/script_detalhespedido.js" defer></script>
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -15,8 +15,8 @@
     <div class="content">
         <div class="header">
             <input type="hidden" id="m-id" />
-            <span>😊</span>
-            <button onclick="openModal()" id="new">Incluir</button>
+            <span id="nomeCliente"></span>
+            <button onclick="openModal()" id="new">Incluir Produto</button>
         </div>
 
         <div class="divTable">
@@ -24,13 +24,28 @@
                 <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Email</th>
+                    <th>Descrição</th>
+                    <th>Valor Unitário</th>
+                    <th>Quantidade</th>
+                    <th>Total</th>
                     <th class="acao">Editar</th>
                     <th class="acao">Excluir</th>
                 </tr>
                 </thead>
                 <tbody id="tbody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="divTable">
+            <table>
+                <thead id="thead">
+                <tr>
+                    <th>Total do Pedido</th>
+                    <th id="TotalPedido"></th>
+                </tr>
+                </thead>
+                <tbody>
                 </tbody>
             </table>
         </div>
@@ -54,7 +69,7 @@
                             <th>Nome</th>
                             <th>Descricao</th>
                             <th>Preco</th>
-                            <th>Quantidade</th>
+                            <th >Quantidade</th>
                             <th class="acao">Adicionar</th>
                         </tr>
                         </thead>
@@ -65,6 +80,29 @@
 
             </div>
         </div>
+
+        <div class="modal-container2">
+            <div class="modal">
+                <div class="divTable3">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descricao</th>
+                            <th>Preco</th>
+                            <th >Quantidade</th>
+                            <th class="acao">Editar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 </div>
 
