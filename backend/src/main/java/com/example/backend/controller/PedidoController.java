@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -65,16 +64,24 @@ public class PedidoController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido not found for this id :: " + id));
     }
 
+    @GetMapping("pagarPedido/{id}")
+    public void pagarPedido(@PathVariable Long id) {
+        Pedido pedido = getPedidoById(id);
+        pedido.setPago(true);
+        System.out.println(pedido);
+        pedidoRepository.save(pedido);
+    }
+
     @GetMapping("/naoPagos")
     public List<Pedido> naoPagos() {
         return pedidoRepository.findByPagoFalse();
     }
 
     @GetMapping("/buscarPeriodo")
-    public Optional<Pedido> buscarPedidosPorPeriodo(
+    public List<Pedido> buscarPedidosPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        return pedidoRepository.getAllByDataPedidoBetweenAndPagoTrue(startDate, endDate);
+        return pedidoRepository.findAllByDataPedidoBetweenAndPagoTrue(startDate, endDate);
     }
 
     @GetMapping("/calcularTotal/{id}")
@@ -91,6 +98,8 @@ public class PedidoController {
         return total;
 
     }
+
+
 
 
 }

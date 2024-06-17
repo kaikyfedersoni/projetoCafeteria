@@ -41,20 +41,14 @@ public class ProdutoPedidoController {
     }
 
     @PutMapping("/{id}")
-    public Produto_Pedido atualizarProdutoPedido(@RequestBody Produto_Pedido novoProdutoPedido, @PathVariable Long id) {
+    public Produto_Pedido atualizarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody, @PathVariable Long id) {
         return produtoPedidoRepository.findById(id)
                 .map(produto -> {
-                    produto.setNome(novoProdutoPedido.getNome());
-                    produto.setDescricao(novoProdutoPedido.getDescricao());
-                    produto.setPreco(novoProdutoPedido.getPreco());
-                    produto.setQuantidade(novoProdutoPedido.getQuantidade());
+                    produto.setQuantidade(requestBody.getQuantidade());
                     produto.setValorTotal();
                     return produtoPedidoRepository.save(produto);
                 })
-                .orElseGet(() -> {
-                    novoProdutoPedido.setId(id);
-                    return produtoPedidoRepository.save(novoProdutoPedido);
-                });
+                .orElseGet(() -> null);
     }
 
     @GetMapping
@@ -72,7 +66,6 @@ public class ProdutoPedidoController {
         Optional<Pedido> pedido = pedidoRepository.findById(id);
         return produtoPedidoRepository.findAllByPedido(pedido.get());
     }
-
 
 
 

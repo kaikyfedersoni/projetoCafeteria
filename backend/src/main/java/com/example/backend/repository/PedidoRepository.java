@@ -12,6 +12,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     List<Pedido> findByPagoFalse();
 
-    Optional<Pedido> getAllByDataPedidoBetweenAndPagoTrue(LocalDate start, LocalDate end);
-
+    List<Pedido> findAllByDataPedidoBetweenAndPagoTrue(LocalDate startDate, LocalDate endDate);
 }

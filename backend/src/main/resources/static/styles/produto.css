@@ -172,7 +172,7 @@ tbody tr td.acao {
   }
 }
 
-.modal-container {
+.modal-container, .modal-container2 {
   width: 100vw;
   height: 100vh;
   position: fixed;

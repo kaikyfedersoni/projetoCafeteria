@@ -15,6 +15,13 @@ const sId = document.querySelector('#m-id');
 const sNome = document.querySelector('#m-nome');
 const btnBuscar = document.querySelector("#btnBuscar");
 
+const modal2 = document.querySelector(".modal-container2");
+const editarIdProduto = document.querySelector("#m-idProduto");
+const editarNomeProduto = document.querySelector("#m-nomeProduto");
+const editarDescricao = document.querySelector("#m-Descricao");
+const editarValor = document.querySelector("#m-Preco");
+const editarQuantidade = document.querySelector("#m-Quantidade");
+
 const thead = document.querySelector("#thead");
 const valorTotal = document.querySelector("#TotalPedido");
 
@@ -69,6 +76,29 @@ function openModal(edit = false, index = 0) {
     }
 }
 
+function openModal2(index = 0) {
+    modal2.classList.add('active');
+
+    modal2.onclick = e => {
+        if (e.target.className.indexOf('modal-container') !== -1) {
+            modal2.classList.remove('active');
+        }
+    };
+
+    fetch(`${host}/produtosPedido/${index}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+                editarIdProduto.value = index;
+                editarNomeProduto.value = data.nome;
+                editarValor.value = data.preco;
+                editarDescricao.value = data.descricao;
+                editarQuantidade.value = data.quantidade;
+        })
+        .catch(error => console.error('Error:', error));
+
+}
+
 async function fetchProdutos() {
 
     await atualizarTotalPedido();
@@ -89,7 +119,7 @@ async function fetchProdutos() {
                     <td>${produto.quantidade}</td>
                     <td>R$ ${produto.valorTotal.toFixed(2)}</td>
                     <td class="acao">
-                        <button onclick="openModal(true, ${produto.id})"><i class='bx bx-edit'></i></button>
+                        <button onclick="openModal2(${produto.id})"><i class='bx bx-edit'></i></button>
                     </td>
                     <td class="acao">
                         <button onclick="deleteProduto(${produto.id})"><i class='bx bx-trash'></i></button>
@@ -156,8 +186,8 @@ function buscarProduto(event){
 }
 
 async function incluirProduto(event){
-    let button = event.target.closest('button'); // Find the closest button ancestor
-    let tr = button.closest('tr'); // Find the closest tr ancestor
+    let button = event.target.closest('button');
+    let tr = button.closest('tr');
     let input = tr.querySelector('input[type="number"]');
 
     if (input.value === '')
@@ -194,41 +224,6 @@ async function closeModal() {
     await fetchProdutos();
 }
 
-function salvarEditar(){
-    //e.preventDefault();
-
-    if (sNome.value === '' || sDescricao.value === '' || sPreco.value === '') {
-        return;
-    }
-
-    const method = sId.value ? 'PUT' : 'POST';
-    const url = sId.value ? `${host}/produtos/${sId.value}` : `${host}/produtos`;
-
-    fetch(url, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: sId.value, nome: sNome.value, descricao: sDescricao.value, preco: sPreco.value}),
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            if(method.match("POST"))
-                alert('Cadastro realizado com sucesso!');
-            else
-                alert("Cadastro editado com sucesso!")
-            fetchProdutos();
-            clearForm();
-            modal.classList.remove('active');
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Erro ao realizar o cadastro.' + error);
-        });
-}
-
-
 async function deleteProduto(id) {
     await fetch(`${host}/produtosPedido/${id}`, {
         method: 'DELETE',
@@ -244,9 +239,57 @@ async function deleteProduto(id) {
         });
 }
 
+async function editarProduto() {
+
+    document.getElementById('editarForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
+
+    if (editarQuantidade.value === '')
+        return;
+
+    let requestBody = {
+        idProduto: editarIdProduto.value,
+        idPedido: pedidoId,
+        quantidade: editarQuantidade.value
+    };
+
+    await fetch(`${host}/produtosPedido/${editarIdProduto.value}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+
+    await closeModal2();
+
+}
+
+async function pagarPedido(){
+
+    if (!confirm("Deseja Confirmar o Pagamento?"))
+        return;
+
+    await fetch(`${host}/pedidos/pagarPedido/${pedidoId}`)
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+
+    window.location.href = `${host}/pages/pedidos.html`;
+
+}
+
+async function closeModal2() {
+    modal2.classList.remove('active');
+    await fetchProdutos();
+}
+
 function clearForm() {
     sId.value = 0;
     sNome.value = '';
-    //sDescricao.value = '';
-    //sPreco.value = '';
 }

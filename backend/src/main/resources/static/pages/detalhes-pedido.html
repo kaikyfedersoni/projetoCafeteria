@@ -83,24 +83,25 @@
 
         <div class="modal-container2">
             <div class="modal">
-                <div class="divTable3">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Descricao</th>
-                            <th>Preco</th>
-                            <th >Quantidade</th>
-                            <th class="acao">Editar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
+                <form id="editarForm">
+                    <input id="m-idProduto" type="hidden" value="0" />
+                    <label for="m-nomeProduto">Nome</label>
+                    <input id="m-nomeProduto" type="text" readonly />
+                    <label for="m-Descricao">Descrição</label>
+                    <input id="m-Descricao" type="text" readonly />
+                    <label for="m-Preco">Preco</label>
+                    <input id="m-Preco" type="text" readonly />
 
+                    <label for="m-Quantidade">Quantidade</label>
+                    <input id="m-Quantidade" type="text" required />
+
+                    <button id="btnEditarProduto" onclick="editarProduto()">Editar Quantidade</button>
+                </form>
             </div>
         </div>
+
+
+        <button class="botao" onclick="pagarPedido()">Pagar Pedido</button>
 
 
     </div>
