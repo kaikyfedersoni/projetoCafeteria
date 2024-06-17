@@ -34,7 +34,6 @@ public class FuncionarioController {
                     funcionario.setNome(novoFuncionario.getNome());
                     funcionario.setCpf(novoFuncionario.getCpf());
                     funcionario.setLogin(novoFuncionario.getLogin());
-                    funcionario.setSenha(novoFuncionario.getSenha());
                     return funcionarioRepository.save(funcionario);
                 })
                 .orElseGet(() -> {
@@ -45,7 +44,12 @@ public class FuncionarioController {
 
     @GetMapping("/{id}")
     public Optional<Funcionario> buscarPorId(@PathVariable Long id) {
-        return funcionarioRepository.findById(id);
+        return funcionarioRepository.findById(id)
+                .map(funcionario -> {
+                    funcionario.setSenha("");
+                    return Optional.of(funcionario);
+                })
+                .orElseGet(Optional::empty);
     }
 
     @GetMapping

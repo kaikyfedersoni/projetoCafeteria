@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPedido();
 });
 
-const host = "https://" + window.location.host;
+const host = "http://" + window.location.host;
 
 const urlParams = new URLSearchParams(window.location.search);
 const pedidoId = urlParams.get('id');

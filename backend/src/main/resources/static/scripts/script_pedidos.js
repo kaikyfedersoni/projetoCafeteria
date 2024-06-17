@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPedidos();
 });
 
-const host = "https://" + window.location.host;
+const host = "http://" + window.location.host;
 
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');
@@ -21,7 +21,7 @@ function openModal(edit = false, index = 0) {
   };
 
   if (edit) {
-      fetch(`${host}/pedido/${index}`)
+      fetch(`${host}/pedidos/${index}`)
           .then(response => response.json())
           .then(data => {
               sId.value = data.id;
@@ -78,11 +78,11 @@ btnSalvarPedido.onclick = e => {
   }
 
   const method = id ? 'PUT' : 'POST';
-  const url = id ? `${host}/pedido/${id}` : `${host}/pedido`;
-  const isPago = id ? true : false;
+  const url = id ? `${host}/pedidos/${id}` : `${host}/pedidos/`;
+  const isPago = id;
 
-    fetch(`${host}/pedido/`, {
-      method: 'POST',
+    fetch(url, {
+      method: method,
       headers: {
           'Content-Type': 'application/json',
       },
@@ -97,10 +97,9 @@ btnSalvarPedido.onclick = e => {
       .then(response => response.json())
       .then(data => {
           console.log('Success:', data);
-          alert('Pedido salvo com sucesso!');
+          alert(data);
           modal.classList.remove('active');
-          fetchPedidos();
-          clearForm();
+          window.location.href = `${host}/pages/detalhes-pedido.html?id=${data.id}`;
       })
       .catch(error => {
           console.error('Error:', error);
@@ -109,7 +108,7 @@ btnSalvarPedido.onclick = e => {
 };
 
 function deletePedido(id) {
-  fetch(`${host}/pedido/${id}`, {
+  fetch(`${host}/pedidos/${id}`, {
       method: 'DELETE',
   })
       .then(response => response.json())

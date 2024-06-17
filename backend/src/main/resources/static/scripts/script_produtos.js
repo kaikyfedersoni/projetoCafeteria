@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProdutos();
 });
 
-const host = "https://" + window.location.host;
+const host = "http://" + window.location.host;
 
 
 const modal = document.querySelector('.modal-container');

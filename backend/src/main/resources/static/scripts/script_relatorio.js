@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', fetchItems);
 });
 
-const host = "https://" + window.location.host;
+const host = "http://" + window.location.host;
 const tbody = document.querySelector('tbody');
 const sStartDate = document.querySelector("#startDate");
 const sEndDate = document.querySelector("#endDate");
