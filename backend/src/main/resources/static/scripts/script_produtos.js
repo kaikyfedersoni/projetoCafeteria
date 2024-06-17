@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProdutos();
 });
 
+const host = "https://" + window.location.host;
+
+
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');
 const sId = document.querySelector('#m-id');
@@ -21,7 +24,7 @@ function openModal(edit = false, index = 0) {
 
     if (edit) {
         sId.value = index;
-        fetch(`http://localhost:8080/produtos/${index}`)
+        fetch(`${host}/produtos/${index}`)
             .then(response => response.json())
             .then(data => {
                 sId.value = data.id;
@@ -36,7 +39,7 @@ function openModal(edit = false, index = 0) {
 }
 
 function fetchProdutos() {
-    fetch('http://localhost:8080/produtos')
+    fetch(`${host}/produtos`)
         .then(response => response.json())
         .then(data => {
             tbody.innerHTML = '';
@@ -68,7 +71,9 @@ function salvarEditar(){
     }
 
     const method = sId.value ? 'PUT' : 'POST';
-    const url = sId.value ? `http://localhost:8080/produtos/${sId.value}` : 'http://localhost:8080/produtos';
+    const url = sId.value ? `${host}/produtos/${sId.value}` : `${host}/produtos`;
+
+    console.log(url);
 
     fetch(url, {
         method: method,
@@ -96,7 +101,7 @@ function salvarEditar(){
 
 
 function deleteProduto(id) {
-    fetch(`http://localhost:8080/produtos/${id}`, {
+    fetch(`${host}/produtos/${id}`, {
         method: 'DELETE',
     })
         .then(data => {
