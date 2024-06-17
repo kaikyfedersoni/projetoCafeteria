@@ -61,6 +61,10 @@
             return dataPedido;
         }
 
+        public void setDataPedido(){
+            this.dataPedido = LocalDate.now();
+        }
+
         public void setDataPedido(LocalDate dataPedido) {
             this.dataPedido = dataPedido;
         }

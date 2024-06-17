@@ -2,11 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPedidos();
 });
 
+const host = "https://" + window.location.host;
+
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');
 const sComprador = document.querySelector('#comprador');
-const sProdutos = document.querySelector('#produtos');
-const sValorTotal = document.querySelector('#valorTotal');
+const sData = document.querySelector("#m-Data");
 const btnSalvarPedido = document.querySelector('#btnSalvarPedido');
 const sId = document.querySelector("#m-id");
 
@@ -20,7 +21,7 @@ function openModal(edit = false, index = 0) {
   };
 
   if (edit) {
-      fetch(`http://localhost:8080/pedido/${index}`)
+      fetch(`${host}/pedido/${index}`)
           .then(response => response.json())
           .then(data => {
               sId.value = data.id;
@@ -43,11 +44,11 @@ function formatDate(dateString) {
 }
 
 function editarPedido(index){
-    window.location.href = `http://localhost:8080/pages/detalhes-pedido.html?id=${index}`;
+    window.location.href = `${host}/pages/detalhes-pedido.html?id=${index}`;
 }
 
 function fetchPedidos() {
-  fetch('http://localhost:8080/pedidos/naoPagos')
+  fetch(`${host}/pedidos/naoPagos`)
       .then(response => response.json())
       .then(data => {
           tbody.innerHTML = '';
@@ -72,22 +73,25 @@ function fetchPedidos() {
 btnSalvarPedido.onclick = e => {
   e.preventDefault();
 
-  if (sComprador.value === '' || sProdutos.value === '' || sValorTotal.value === '') {
+  if (sComprador.value === '') {
       return;
   }
 
   const method = id ? 'PUT' : 'POST';
-  const url = id ? `http://localhost:8080/pedido/${id}` : 'http://localhost:8080/pedido';
+  const url = id ? `${host}/pedido/${id}` : `${host}/pedido`;
+  const isPago = id ? true : false;
 
-  fetch(url, {
-      method: method,
+    fetch(`${host}/pedido/`, {
+      method: 'POST',
       headers: {
           'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+          id : 0,
           comprador: sComprador.value,
-          produtos: sProdutos.value,
-          valorTotal: sValorTotal.value,
+          dataPedido: sData.value,
+          valorTotal: 0,
+          pago: isPago
       }),
   })
       .then(response => response.json())
@@ -105,7 +109,7 @@ btnSalvarPedido.onclick = e => {
 };
 
 function deletePedido(id) {
-  fetch(`http://localhost:8080/pedido/${id}`, {
+  fetch(`${host}/pedido/${id}`, {
       method: 'DELETE',
   })
       .then(response => response.json())
@@ -123,6 +127,4 @@ function deletePedido(id) {
 function clearForm() {
   id = undefined;
   sComprador.value = '';
-  sProdutos.value = '';
-  sValorTotal.value = '';
 }

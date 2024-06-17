@@ -26,9 +26,10 @@ public class PedidoController {
         this.produtoPedidoRepository = produtoPedidoRepository;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public Pedido salvarPedido(@RequestBody Pedido pedido) {
         pedido.setValorTotal(0);
+        pedido.setDataPedido();
         return pedidoRepository.save(pedido);
     }
 
