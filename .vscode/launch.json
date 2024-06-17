@@ -9,6 +9,16 @@
             "projectName": "backend",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<prjCafeteria>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.prjCafeteria.Application",
+            "projectName": "prjCafeteria",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
