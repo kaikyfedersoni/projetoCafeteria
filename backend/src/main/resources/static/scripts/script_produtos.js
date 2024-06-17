@@ -24,6 +24,7 @@ function openModal(edit = false, index = 0) {
 
     if (edit) {
         sId.value = index;
+        console.log(`${host}/produtos/${index}`);
         fetch(`${host}/produtos/${index}`)
             .then(response => response.json())
             .then(data => {

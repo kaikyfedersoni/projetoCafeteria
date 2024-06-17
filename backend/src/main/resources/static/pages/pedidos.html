@@ -18,6 +18,10 @@
                 <button onclick="openModal()" id="new">Novo Pedido</button>
             </div>
 
+            <div style="display: none;">
+                <input type="date" id="m-Data"/>
+            </div>
+
             <div class="divTable">
                 <table>
                     <thead>
@@ -40,9 +44,6 @@
                         <input type="hidden" id="m-id" />
                         <label for="comprador">Nome do Comprador</label>
                         <input id="comprador" type="text" required />
-
-                        <label for="produtos">Produtos</label>
-                        <div id="produtos-container"></div>
 
                         <button id="btnSalvarPedido">Salvar Pedido</button>
                     </form>

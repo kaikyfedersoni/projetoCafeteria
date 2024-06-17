@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchPedido();
 });
 
+const host = "https://" + window.location.host;
+
 const urlParams = new URLSearchParams(window.location.search);
 const pedidoId = urlParams.get('id');
 
@@ -26,7 +28,7 @@ function openModal(edit = false, index = 0) {
         }
     };
 
-    fetch(`http://localhost:8080/produtos`)
+    fetch(`${host}/produtos`)
         .then(response => response.json())
         .then(data => {
             m_tbody.innerHTML = '';
@@ -53,7 +55,7 @@ function openModal(edit = false, index = 0) {
 
     if (edit) {
         sId.value = index;
-        fetch(`http://localhost:8080/produtos/${index}`)
+        fetch(`${host}/produtos/${index}`)
             .then(response => response.json())
             .then(data => {
                 sId.value = data.id;
@@ -71,7 +73,7 @@ async function fetchProdutos() {
 
     await atualizarTotalPedido();
 
-    await fetch(`http://localhost:8080/produtosPedido/pedidos/${pedidoId}`)
+    await fetch(`${host}/produtosPedido/pedidos/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             let total = 0.0;
@@ -100,7 +102,7 @@ async function fetchProdutos() {
 }
 
 function fetchPedido() {
-    fetch(`http://localhost:8080/pedidos/${pedidoId}`)
+    fetch(`${host}/pedidos/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             document.querySelector("#nomeCliente").innerHTML = "Pedido " + data.id.toString().padStart(3, '0') + " - Comprador: " + data.comprador;
@@ -109,7 +111,7 @@ function fetchPedido() {
 }
 
 async function atualizarTotalPedido() {
-    await fetch(`http://localhost:8080/pedidos/calcularTotal/${pedidoId}`)
+    await fetch(`${host}/pedidos/calcularTotal/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             valorTotal.innerHTML = "R$ " + data.toFixed(2);
@@ -126,7 +128,7 @@ function buscarProduto(event){
         return;
     }
 
-    fetch(`http://localhost:8080/produtos/nome/${sNome.value}`)
+    fetch(`${host}/produtos/nome/${sNome.value}`)
         .then(response => response.json())
         .then(data => {
             m_tbody.innerHTML = '';
@@ -170,7 +172,7 @@ async function incluirProduto(event){
         quantidade: quantidade
     };
 
-    await fetch(`http://localhost:8080/produtosPedido/`, {
+    await fetch(`${host}/produtosPedido/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -200,7 +202,7 @@ function salvarEditar(){
     }
 
     const method = sId.value ? 'PUT' : 'POST';
-    const url = sId.value ? `http://localhost:8080/produtos/${sId.value}` : 'http://localhost:8080/produtos';
+    const url = sId.value ? `${host}/produtos/${sId.value}` : `${host}/produtos`;
 
     fetch(url, {
         method: method,
@@ -227,8 +229,8 @@ function salvarEditar(){
 }
 
 
-function deleteProduto(id) {
-    fetch(`http://localhost:8080/produtosPedido/${id}`, {
+async function deleteProduto(id) {
+    await fetch(`${host}/produtosPedido/${id}`, {
         method: 'DELETE',
     })
         .then(data => {
