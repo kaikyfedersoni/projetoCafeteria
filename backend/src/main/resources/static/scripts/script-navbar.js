@@ -1,6 +1,7 @@
 document.write(`
 
     <nav>
+      <img src="../images/cafeteria.png" width="250" height="250">
       <ul>
         <li><a href="../index.html">Home</a></li>
         <li><a href="funcionarios.html">Funcionários</a></li>

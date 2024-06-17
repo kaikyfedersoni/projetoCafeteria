@@ -58,7 +58,7 @@ function fetchPedidos() {
                   <td>${pedido.id}</td>
                   <td>${pedido.comprador}</td>
                   <td>${formatDate(pedido.dataPedido)}</td>
-                  <td>${pedido.valorTotal}</td>
+                  <td>R$ ${pedido.valorTotal.toFixed(2)}</td>
                   <td class="acao">
                       <button onclick="editarPedido(${pedido.id})" class="botao" >Detalhes</button>
                   </td>

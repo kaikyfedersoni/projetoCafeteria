@@ -47,7 +47,7 @@ function fetchItems(event) {
                 total = total + pedido.valorTotal;
 
             });
-            valorTotal.innerHTML = "R$ " + total;
+            valorTotal.innerHTML = "R$ " + total.toFixed(2);
         })
         .catch(error => console.error('Erro:', error));
 

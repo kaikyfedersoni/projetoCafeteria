@@ -17,7 +17,7 @@ nav{
   display: flex;
   align-items: center;
   height: 10vh;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 nav>ul{

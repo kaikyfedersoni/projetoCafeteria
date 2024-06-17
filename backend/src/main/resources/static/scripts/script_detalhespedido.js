@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchProdutos();
     fetchPedido();
-    atualizarTotalPedido();
 });
 
 const urlParams = new URLSearchParams(window.location.search);
-const idPedido = urlParams.get('id');
+const pedidoId = urlParams.get('id');
 
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('#tbody');
@@ -43,7 +42,7 @@ function openModal(edit = false, index = 0) {
                         <input type="number" maxlength="999" required/>
                     </td>
                     <td class="acao" width="15%">
-                        <button onclick="incluirProduto(${produto.id})"><i></i>Adicionar</button>
+                        <button onclick="incluirProduto(event)">Adicionar</button>
                     </td>
                     </form>
                 `;
@@ -68,8 +67,11 @@ function openModal(edit = false, index = 0) {
     }
 }
 
-function fetchProdutos() {
-    fetch(`http://localhost:8080/produtosPedido/pedidos/${idPedido}`)
+async function fetchProdutos() {
+
+    await atualizarTotalPedido();
+
+    await fetch(`http://localhost:8080/produtosPedido/pedidos/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             let total = 0.0;
@@ -98,7 +100,7 @@ function fetchProdutos() {
 }
 
 function fetchPedido() {
-    fetch(`http://localhost:8080/pedidos/${idPedido}`)
+    fetch(`http://localhost:8080/pedidos/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             document.querySelector("#nomeCliente").innerHTML = "Pedido " + data.id.toString().padStart(3, '0') + " - Comprador: " + data.comprador;
@@ -106,8 +108,8 @@ function fetchPedido() {
         .catch(error => console.error('Error:', error));
 }
 
-function atualizarTotalPedido() {
-    fetch(`http://localhost:8080/pedidos/calcularTotal/${idPedido}`)
+async function atualizarTotalPedido() {
+    await fetch(`http://localhost:8080/pedidos/calcularTotal/${pedidoId}`)
         .then(response => response.json())
         .then(data => {
             valorTotal.innerHTML = "R$ " + data.toFixed(2);
@@ -124,8 +126,6 @@ function buscarProduto(event){
         return;
     }
 
-
-
     fetch(`http://localhost:8080/produtos/nome/${sNome.value}`)
         .then(response => response.json())
         .then(data => {
@@ -134,7 +134,7 @@ function buscarProduto(event){
                 let tr = document.createElement('tr');
                 tr.dataset.id = produto.id;
                 tr.innerHTML = `
-                    <form>
+                    <form method="get">
                     <td>${produto.nome}</td>
                     <td>${produto.descricao}</td>
                     <td>R$ ${produto.preco.toFixed(2)}</td>
@@ -142,7 +142,7 @@ function buscarProduto(event){
                         <input type="number" maxlength="999" required/>
                     </td>
                     <td class="acao" width="15%">
-                        <button onclick="incluirProduto(${produto.id})"><i></i>Adicionar</button>
+                        <button onclick="incluirProduto(event)">Adicionar</button>
                     </td>
                     </form>
                 `;
@@ -153,7 +153,44 @@ function buscarProduto(event){
 
 }
 
+async function incluirProduto(event){
+    let button = event.target.closest('button'); // Find the closest button ancestor
+    let tr = button.closest('tr'); // Find the closest tr ancestor
+    let input = tr.querySelector('input[type="number"]');
 
+    if (input.value === '')
+        return;
+
+    let quantidade = input.value;
+    let produtoId = tr.dataset.id;
+
+    let requestBody = {
+        idProduto: produtoId,
+        idPedido: pedidoId,
+        quantidade: quantidade
+    };
+
+    await fetch(`http://localhost:8080/produtosPedido/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+    await closeModal();
+}
+
+async function closeModal() {
+    modal.classList.remove('active');
+    await fetchProdutos();
+}
 
 function salvarEditar(){
     //e.preventDefault();
@@ -191,7 +228,7 @@ function salvarEditar(){
 
 
 function deleteProduto(id) {
-    fetch(`http://localhost:8080/produtos/${id}`, {
+    fetch(`http://localhost:8080/produtosPedido/${id}`, {
         method: 'DELETE',
     })
         .then(data => {

@@ -18,7 +18,17 @@ public class Produto_Pedido {
     @ManyToOne
     private Pedido pedido;
 
+
     public Produto_Pedido() {    }
+
+    public Produto_Pedido(Produto produto, Pedido pedido, int quantidade){
+        this.nome = produto.getNome();
+        this.descricao = produto.getDescricao();
+        this.preco = produto.getPreco();
+        this.quantidade = quantidade;
+        this.setValorTotal();
+        this.pedido = pedido;
+    }
 
     public Produto_Pedido(Long id, String nome, String descricao, Double preco, int quantidade, Pedido pedido) {
         this.id = id;

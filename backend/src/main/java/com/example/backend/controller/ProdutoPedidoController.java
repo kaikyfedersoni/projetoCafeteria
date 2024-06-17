@@ -3,6 +3,7 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Pedido;
 import com.example.backend.model.Produto;
+import com.example.backend.model.ProdutoPedidoRequestBody;
 import com.example.backend.model.Produto_Pedido;
 import com.example.backend.repository.PedidoRepository;
 import com.example.backend.repository.ProdutoPedidoRepository;
@@ -26,10 +27,11 @@ public class ProdutoPedidoController {
         this.produtoRepository = produtoRepository;
     }
 
-    @PostMapping
-    public Produto_Pedido salvarProdutoPedido(@RequestBody Produto_Pedido produtoPedido, @RequestBody Long id){
-        Optional<Produto> produto = produtoRepository.findById(id);
-        produtoPedido.setValorTotal();
+    @PostMapping("/")
+    public Produto_Pedido salvarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody){
+        Optional<Produto> produto = produtoRepository.findById(requestBody.getIdProduto());
+        Optional<Pedido> pedido = pedidoRepository.findById(requestBody.getIdPedido());
+        Produto_Pedido produtoPedido = new Produto_Pedido(produto.get(), pedido.get(), requestBody.getQuantidade());
         return produtoPedidoRepository.save(produtoPedido);
     }
 
