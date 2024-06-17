@@ -1,9 +1,9 @@
-package com.example.backend.controller;
+package com.example.prjCafeteria.controller;
 
-import com.example.backend.repository.FuncionarioRepository;
+import com.example.prjCafeteria.repository.FuncionarioRepository;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.backend.model.Funcionario;
+import com.example.prjCafeteria.model.Funcionario;
 import java.util.List;
 import java.util.Optional;
 

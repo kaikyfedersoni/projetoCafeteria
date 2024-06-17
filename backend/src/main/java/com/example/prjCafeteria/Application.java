@@ -1,7 +1,7 @@
-package com.example.backend;
+package com.example.prjCafeteria;
 
-import com.example.backend.controller.*;
-import com.example.backend.model.*;
+import com.example.prjCafeteria.controller.*;
+import com.example.prjCafeteria.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

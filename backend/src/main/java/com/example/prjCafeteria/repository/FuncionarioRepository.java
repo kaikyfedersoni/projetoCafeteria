@@ -1,6 +1,6 @@
-package com.example.backend.repository;
+package com.example.prjCafeteria.repository;
 
-import com.example.backend.model.Funcionario;
+import com.example.prjCafeteria.model.Funcionario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {

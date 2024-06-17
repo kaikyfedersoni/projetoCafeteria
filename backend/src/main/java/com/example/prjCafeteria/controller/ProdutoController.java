@@ -1,8 +1,8 @@
-package com.example.backend.controller;
+package com.example.prjCafeteria.controller;
 
 
-import com.example.backend.model.Produto;
-import com.example.backend.repository.ProdutoRepository;
+import com.example.prjCafeteria.model.Produto;
+import com.example.prjCafeteria.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

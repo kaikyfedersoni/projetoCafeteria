@@ -1,9 +1,9 @@
-package com.example.backend.controller;
+package com.example.prjCafeteria.controller;
 
-import com.example.backend.model.Pedido;
-import com.example.backend.model.Produto_Pedido;
-import com.example.backend.repository.PedidoRepository;
-import com.example.backend.repository.ProdutoPedidoRepository;
+import com.example.prjCafeteria.model.Pedido;
+import com.example.prjCafeteria.model.Produto_Pedido;
+import com.example.prjCafeteria.repository.PedidoRepository;
+import com.example.prjCafeteria.repository.ProdutoPedidoRepository;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

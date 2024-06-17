@@ -1,7 +1,7 @@
-package com.example.backend.repository;
+package com.example.prjCafeteria.repository;
 
-import com.example.backend.model.Pedido;
-import com.example.backend.model.Produto_Pedido;
+import com.example.prjCafeteria.model.Pedido;
+import com.example.prjCafeteria.model.Produto_Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

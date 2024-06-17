@@ -1,16 +1,12 @@
 
 
-import com.example.backend.controller.*;
-import com.example.backend.model.*;
+import com.example.prjCafeteria.controller.*;
+import com.example.prjCafeteria.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class Application2  {
 	public static void main(String[] args) throws JsonProcessingException {
