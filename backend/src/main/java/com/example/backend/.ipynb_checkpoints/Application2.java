@@ -1,4 +1,4 @@
-package com.example.backend;
+
 
 import com.example.backend.controller.*;
 import com.example.backend.model.*;
@@ -8,11 +8,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-@SpringBootApplication
-public class Application  {
+public class Application2  {
 	public static void main(String[] args) throws JsonProcessingException {
-        ApplicationContext ctx = SpringApplication.run(Application.class, args);
+        ApplicationContext ctx = SpringApplication.run(Application2.class, args);
 
         ProdutoController produtoController = ctx.getBean(ProdutoController.class);
         Produto produto = new Produto();
@@ -66,6 +68,29 @@ public class Application  {
 
         pedidoController.calcularTotal(pedido.getId());
 
+
+       /*ProdutoPedidoController produtoPedidoController = ctx.getBean(ProdutoPedidoController.class);
+       ProdutoPedido produtoPedido = new ProdutoPedido();
+       //produtoPedido.setProduto(produto);
+       produtoPedido.setQuantidade(1);
+       produtoPedidoController.salvar(produtoPedido);
+
+       ProdutoPedido produtoPedido2 = new ProdutoPedido();
+       //produtoPedido2.setProduto(produto2);
+       produtoPedido2.setQuantidade(2);
+       produtoPedidoController.salvar(produtoPedido2);
+       List<ProdutoPedido> produtosPedidos = new ArrayList<>();
+       produtosPedidos.add(produtoPedido);
+       produtosPedidos.add(produtoPedido2);
+
+       PedidoController pedidoController = ctx.getBean(PedidoController.class);
+       Pedido pedido = new Pedido();
+       pedido.setDestinatario("Destinatario 1");
+       pedido.setProdutosPedidos(produtosPedidos);
+       pedido.setStatus(true);
+       pedido.setAtendente(atendente);
+       pedidoController.salvarPedido(pedido);
+       */
 
         System.out.println("It's online");
 

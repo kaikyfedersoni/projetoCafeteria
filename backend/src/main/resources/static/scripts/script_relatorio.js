@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', fetchItems);
 });
 
+const host = "https://" + window.location.host;
 const tbody = document.querySelector('tbody');
 const sStartDate = document.querySelector("#startDate");
 const sEndDate = document.querySelector("#endDate");
@@ -21,7 +22,7 @@ function fetchItems(event) {
 
     let total = 0;
 
-    const url = `http://localhost:8080/pedidos/buscarPeriodo?startDate=${startDate}&endDate=${endDate}`;
+    const url = `${host}/pedidos/buscarPeriodo?startDate=${startDate}&endDate=${endDate}`;
 
     fetch(url)
         .then(response => {

@@ -4,14 +4,12 @@ import com.example.backend.model.Pedido;
 import com.example.backend.model.Produto_Pedido;
 import com.example.backend.repository.PedidoRepository;
 import com.example.backend.repository.ProdutoPedidoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +21,6 @@ public class PedidoController {
     private final PedidoRepository pedidoRepository;
     private final ProdutoPedidoRepository produtoPedidoRepository;
 
-    @Autowired
     public PedidoController(PedidoRepository pedidoRepository, ProdutoPedidoRepository produtoPedidoRepository) {
         this.pedidoRepository = pedidoRepository;
         this.produtoPedidoRepository = produtoPedidoRepository;
