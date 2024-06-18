@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchPedidos();
 });
 
-const host = "http://" + window.location.host;
+const host = window.location.protocol + "//" + window.location.host;
+
 
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');

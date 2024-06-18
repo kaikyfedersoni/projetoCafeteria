@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchFuncionarios();
 });
 
+const host = window.location.protocol + "//" + window.location.host;
+
+
 const modal = document.querySelector('.modal-container');
 const tbody = document.querySelector('tbody');
 const sNome = document.querySelector('#m-nome');
@@ -22,7 +25,7 @@ function openModal(edit = false, index = 0) {
 
     if (edit) {
         sId.value = index;
-        fetch(`http://localhost:8080/funcionarios/${index}`)
+        fetch(`${host}/funcionarios/${index}`)
             .then(response => response.json())
             .then(data => {
                 sId.value = index;
@@ -38,7 +41,7 @@ function openModal(edit = false, index = 0) {
 }
 
 function fetchFuncionarios() {
-    fetch('http://localhost:8080/funcionarios')
+    fetch(`${host}/funcionarios`)
         .then(response => response.json())
         .then(data => {
             tbody.innerHTML = '';
@@ -70,7 +73,7 @@ btnSalvar.onclick = e => {
     }
 
     const method = sId.value ? 'PUT' : 'POST';
-    const url = sId.value ? `http://localhost:8080/funcionarios/${sId.value}` : 'http://localhost:8080/funcionarios';
+    const url = sId.value ? `${host}/funcionarios/${sId.value}` : `${host}/funcionarios`;
 
     fetch(url, {
         method: method,
@@ -100,7 +103,7 @@ btnSalvar.onclick = e => {
 };
 
 function deleteFuncionario(id) {
-    fetch(`http://localhost:8080/funcionarios/${id}`, {
+    fetch(`${host}/funcionarios/${id}`, {
         method: 'DELETE',
     })
         .then(data => {

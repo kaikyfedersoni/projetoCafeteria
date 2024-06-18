@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', fetchItems);
 });
 
-const host = "http://" + window.location.host;
+const host = window.location.protocol + "//" + window.location.host;
+
+
 const tbody = document.querySelector('tbody');
 const sStartDate = document.querySelector("#startDate");
 const sEndDate = document.querySelector("#endDate");
@@ -26,8 +28,6 @@ function fetchItems(event) {
 
     fetch(url)
         .then(response => {
-            console.log('Status da resposta:', response.status);
-            console.log('Tipo de conteúdo:', response.headers.get('content-type'));
             return response.json();
         })
         .then(data => {
@@ -64,5 +64,5 @@ function formatDate(dateString) {
 }
 
 function editarPedido(index){
-    window.location.href = `http://localhost:8080/pages/detalhes-pedido.html?id=${index}`;
+    window.location.href = `${host}/pages/detalhes-pedido.html?id=${index}`;
 }
