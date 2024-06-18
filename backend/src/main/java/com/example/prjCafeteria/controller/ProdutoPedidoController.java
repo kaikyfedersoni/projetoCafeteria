@@ -4,7 +4,7 @@ package com.example.prjCafeteria.controller;
 import com.example.prjCafeteria.model.Pedido;
 import com.example.prjCafeteria.model.Produto;
 import com.example.prjCafeteria.model.ProdutoPedidoRequestBody;
-import com.example.prjCafeteria.model.Produto_Pedido;
+import com.example.prjCafeteria.model.ProdutoPedido;
 import com.example.prjCafeteria.repository.PedidoRepository;
 import com.example.prjCafeteria.repository.ProdutoPedidoRepository;
 import com.example.prjCafeteria.repository.ProdutoRepository;
@@ -28,10 +28,10 @@ public class ProdutoPedidoController {
     }
 
     @PostMapping("/")
-    public Produto_Pedido salvarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody){
+    public ProdutoPedido salvarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody){
         Optional<Produto> produto = produtoRepository.findById(requestBody.getIdProduto());
         Optional<Pedido> pedido = pedidoRepository.findById(requestBody.getIdPedido());
-        Produto_Pedido produtoPedido = new Produto_Pedido(produto.get(), pedido.get(), requestBody.getQuantidade());
+        ProdutoPedido produtoPedido = new ProdutoPedido(produto.get(), pedido.get(), requestBody.getQuantidade());
         return produtoPedidoRepository.save(produtoPedido);
     }
 
@@ -41,28 +41,27 @@ public class ProdutoPedidoController {
     }
 
     @PutMapping("/{id}")
-    public Produto_Pedido atualizarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody, @PathVariable Long id) {
+    public ProdutoPedido atualizarProdutoPedido(@RequestBody ProdutoPedidoRequestBody requestBody, @PathVariable Long id) {
         return produtoPedidoRepository.findById(id)
-                .map(produto -> {
-                    produto.setQuantidade(requestBody.getQuantidade());
-                    produto.setValorTotal();
-                    return produtoPedidoRepository.save(produto);
+                .map(produtoPedido -> {
+                    produtoPedido.setQuantidade(requestBody.getQuantidade());
+                    return produtoPedidoRepository.save(produtoPedido);
                 })
                 .orElseGet(() -> null);
     }
 
     @GetMapping
-    public List<Produto_Pedido> listarProdutos() {
+    public List<ProdutoPedido> listarProdutos() {
         return produtoPedidoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Produto_Pedido> buscarProduto(@PathVariable Long id){
+    public Optional<ProdutoPedido> buscarProduto(@PathVariable Long id){
         return produtoPedidoRepository.findById(id);
     }
 
     @GetMapping("/pedidos/{id}")
-    public List<Produto_Pedido> buscarPedidosPorId(@PathVariable Long id){
+    public List<ProdutoPedido> buscarPedidosPorId(@PathVariable Long id){
         Optional<Pedido> pedido = pedidoRepository.findById(id);
         return produtoPedidoRepository.findAllByPedido(pedido.get());
     }

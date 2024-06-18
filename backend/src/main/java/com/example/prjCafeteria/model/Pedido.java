@@ -19,7 +19,7 @@
         private boolean pago;
 
         @OneToMany
-        private List<Produto_Pedido> produtoPedidos;
+        private List<ProdutoPedido> produtoPedidos;
 
         public Pedido() {
         }

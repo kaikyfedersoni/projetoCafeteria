@@ -1,7 +1,7 @@
 package com.example.prjCafeteria.controller;
 
 import com.example.prjCafeteria.model.Pedido;
-import com.example.prjCafeteria.model.Produto_Pedido;
+import com.example.prjCafeteria.model.ProdutoPedido;
 import com.example.prjCafeteria.repository.PedidoRepository;
 import com.example.prjCafeteria.repository.ProdutoPedidoRepository;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -89,8 +89,8 @@ public class PedidoController {
 
         double total = 0;
         Pedido pedido = getPedidoById(id);
-        List<Produto_Pedido> produtoPedidos = produtoPedidoRepository.findAllByPedido(pedido);
-        for (Produto_Pedido produtoPedido : produtoPedidos){
+        List<ProdutoPedido> produtoPedidos = produtoPedidoRepository.findAllByPedido(pedido);
+        for (ProdutoPedido produtoPedido : produtoPedidos){
             total += produtoPedido.getValorTotal();
         }
         pedido.setValorTotal(total);

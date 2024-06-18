@@ -91,9 +91,9 @@ function openModal2(index = 0) {
         .then(data => {
             console.log(data);
                 editarIdProduto.value = index;
-                editarNomeProduto.value = data.nome;
-                editarValor.value = data.preco;
-                editarDescricao.value = data.descricao;
+                editarNomeProduto.value = data.produto.nome;
+                editarValor.value = data.produto.preco;
+                editarDescricao.value = data.produto.descricao;
                 editarQuantidade.value = data.quantidade;
         })
         .catch(error => console.error('Error:', error));
@@ -109,21 +109,21 @@ async function fetchProdutos() {
         .then(data => {
             let total = 0.0;
             tbody.innerHTML = '';
-            data.forEach(produto => {
+            data.forEach(produtoPedido => {
                 let tr = document.createElement('tr');
-                total = total + produto.valorTotal;
-                tr.dataset.id = produto.id;
+                total = total + (produtoPedido.produto.preco * produtoPedido.quantidade);
+                tr.dataset.id = produtoPedido.id;
                 tr.innerHTML = `
-                    <td>${produto.nome}</td>
-                    <td>${produto.descricao}</td>
-                    <td>R$ ${produto.preco.toFixed(2)}</td>
-                    <td>${produto.quantidade}</td>
-                    <td>R$ ${produto.valorTotal.toFixed(2)}</td>
+                    <td>${produtoPedido.produto.nome}</td>
+                    <td>${produtoPedido.produto.descricao}</td>
+                    <td>R$ ${produtoPedido.produto.preco.toFixed(2)}</td>
+                    <td>${produtoPedido.quantidade}</td>
+                    <td>R$ ${(produtoPedido.quantidade * produtoPedido.produto.preco).toFixed(2)}</td>
                     <td class="acao">
-                        <button onclick="openModal2(${produto.id})"><i class='bx bx-edit'></i></button>
+                        <button onclick="openModal2(${produtoPedido.produto.id})"><i class='bx bx-edit'></i></button>
                     </td>
                     <td class="acao">
-                        <button onclick="deleteProduto(${produto.id})"><i class='bx bx-trash'></i></button>
+                        <button onclick="deleteProduto(${produtoPedido.produto.id})"><i class='bx bx-trash'></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);

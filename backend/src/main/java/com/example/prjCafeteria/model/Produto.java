@@ -1,8 +1,8 @@
 package com.example.prjCafeteria.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Produto {
@@ -14,6 +14,9 @@ public class Produto {
     private String descricao;
 
     private double preco;
+
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ProdutoPedido> produtoPedido;
 
     public Produto() {}
 
